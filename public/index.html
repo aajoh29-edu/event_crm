@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Productions | Hip-Hop & R&B Events | D.C. & Baltimore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOK5K+g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gold-light: #e2c285;
+            --cream: #f4f1ea;
+            --dark-charcoal: #121212;
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Playfair Display', serif, 'Segoe UI', Arial; }
+        body { background-color: var(--dark-charcoal); color: var(--white); line-height: 1.6; }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 8%; background: rgba(18, 18, 18, 0.95);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li { margin-left: 35px; }
+        .nav-links a { text-decoration: none; color: var(--cream); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); cursor: pointer; }
+        .nav-links a:hover { color: var(--gold); }
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.72)),
+                        url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center top;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding-top: 80px;
+        }
+        .hero-location {
+            font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 5px;
+            margin-bottom: 18px; font-style: normal;
+        }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); color: var(--white); margin-bottom: 15px; letter-spacing: 2px; }
+        .hero p { color: var(--gold); font-style: italic; font-size: 1.4rem; margin-bottom: 40px; }
+        .btn-gold {
+            padding: 14px 35px; background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--dark-charcoal); text-decoration: none; font-weight: 700;
+            text-transform: uppercase; border-radius: 4px; transition: var(--transition);
+            border: none; cursor: pointer; font-size: 0.9rem;
+        }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .section { padding: 100px 8%; background-color: var(--cream); color: var(--dark-charcoal); }
+        .section-dark { background: var(--dark-charcoal); color: var(--white); }
+        .section-header {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-bottom: 60px; border-bottom: 1px solid #ddd; padding-bottom: 20px;
+        }
+        .section-dark .section-header { border-bottom-color: rgba(197,160,89,0.3); }
+        .section-title h2 { font-size: 2.5rem; text-transform: uppercase; }
+        .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .event-card { background: var(--white); border: 1px solid #eee; transition: var(--transition); }
+        .event-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .event-img { height: 250px; background-size: cover; background-position: center; position: relative; }
+        .date-badge { position: absolute; top: 0; right: 0; background: var(--dark-charcoal); color: var(--gold); padding: 10px 15px; text-align: center; font-weight: bold; }
+        .event-info { padding: 25px; }
+        .event-info h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .genre { color: var(--gold); font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
+        .event-info .price { font-weight: bold; margin: 10px 0; }
+        .event-info button { margin-top: 12px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 700px; margin: 0 auto; }
+        .form-grid .full { grid-column: 1 / -1; }
+        .form-grid label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: var(--gold); }
+        .form-grid input, .form-grid select, .form-grid textarea {
+            width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(197,160,89,0.3);
+            color: var(--white); font-size: 1rem; font-family: inherit;
+        }
+        .section:not(.section-dark) .form-grid input,
+        .section:not(.section-dark) .form-grid select,
+        .section:not(.section-dark) .form-grid textarea {
+            background: var(--white); border-color: #ddd; color: var(--dark-charcoal);
+        }
+        .form-grid textarea { resize: vertical; min-height: 100px; }
+        .form-status { margin-top: 15px; padding: 12px; border-radius: 4px; display: none; }
+        .form-status.success { display: block; background: rgba(76,175,80,0.2); color: #4caf50; border: 1px solid #4caf50; }
+        .form-status.error { display: block; background: rgba(244,67,54,0.2); color: #f44336; border: 1px solid #f44336; }
+        footer { background: var(--dark-charcoal); padding: 60px 8% 30px; text-align: center; border-top: 3px solid var(--gold); }
+        .social-icons { margin-bottom: 30px; }
+        .social-icons a { color: var(--gold); font-size: 1.5rem; margin: 0 15px; }
+        .footer-note { font-size: 0.8rem; color: #666; margin-top: 40px; }
+        .newsletter-form { max-width: 400px; margin: 20px auto; display: flex; gap: 10px; }
+        .newsletter-form input { flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(197,160,89,0.3); color: var(--white); }
+        .modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000;
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: var(--cream); color: var(--dark-charcoal); padding: 40px; max-width: 600px; width: 100%;
+            max-height: 90vh; overflow-y: auto; position: relative;
+        }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; background: none; border: none; }
+        .modal h3 { margin-bottom: 20px; color: var(--gold); }
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Classic<span style="color:var(--white)">+</span>Productions</div>
+        <ul class="nav-links">
+            <li><a href="#events">Events</a></li>
+            <li><a href="#reservation">Reservations</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="btn-gold" style="padding: 10px 20px; font-size: 0.8rem;" onclick="document.getElementById('reservation').scrollIntoView({behavior:'smooth'})">Book Table</button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-location">Washington D.C. &nbsp;|&nbsp; Baltimore</div>
+        <h1>Classic Nights. Modern Beats.</h1>
+        <p>The DMV's Premier Hip-Hop & R&B Experience</p>
+        <a href="#events" class="btn-gold">Explore the Calendar</a>
+    </section>
+
+    <section class="section" id="events">
+        <div class="section-header">
+            <div class="section-title">
+                <h2>Events</h2>
+            </div>
+            <p style="font-style: italic;">D.C. &amp; Baltimore's finest nightlife, curated for you.</p>
+        </div>
+        <div class="event-grid" id="event-grid">
+            <p>Loading events&hellip;</p>
+        </div>
+    </section>
+
+    <section class="section section-dark" id="reservation">
+        <div class="section-header">
+            <div class="section-title"><h2>Reserve a Table</h2></div>
+            <p style="font-style: italic; color: var(--gold);">VIP and standard seating available.</p>
+        </div>
+        <form class="form-grid" id="reservation-form">
+            <div>
+                <label>Full Name</label>
+                <input type="text" name="full_name" required maxlength="150">
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" required maxlength="200">
+            </div>
+            <div>
+                <label>Phone</label>
+                <input type="tel" name="phone" maxlength="30">
+            </div>
+            <div>
+                <label>Party Size</label>
+                <input type="number" name="party_size" min="1" max="20" value="2" required>
+            </div>
+            <div>
+                <label>Date</label>
+                <input type="date" name="reservation_date" required>
+            </div>
+            <div>
+                <label>Time</label>
+                <input type="time" name="reservation_time" required>
+            </div>
+            <div class="full">
+                <label>Table Type</label>
+                <select name="table_type">
+                    <option value="standard">Standard</option>
+                    <option value="premium">Premium</option>
+                    <option value="vip">VIP Booth</option>
+                </select>
+            </div>
+            <div class="full">
+                <label>Special Requests</label>
+                <textarea name="special_requests" maxlength="1000"></textarea>
+            </div>
+            <div class="full">
+                <button type="submit" class="btn-gold">Submit Reservation</button>
+                <div id="reservation-status" class="form-status"></div>
+            </div>
+        </form>
+    </section>
+
+    <section class="section" id="contact">
+        <div class="section-header">
+            <div class="section-title"><h2>Contact</h2></div>
+            <p style="font-style: italic;">Inquiries, bookings, and press.</p>
+        </div>
+        <form class="form-grid" id="contact-form">
+            <div>
+                <label>Name</label>
+                <input type="text" name="name" required maxlength="150">
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" required maxlength="200">
+            </div>
+            <div class="full">
+                <label>Subject</label>
+                <input type="text" name="subject" maxlength="200">
+            </div>
+            <div class="full">
+                <label>Message</label>
+                <textarea name="message" required maxlength="2000"></textarea>
+            </div>
+            <div class="full">
+                <button type="submit" class="btn-gold">Send Message</button>
+                <div id="contact-status" class="form-status"></div>
+            </div>
+        </form>
+    </section>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 id="modal-event-title">Book Tickets</h3>
+            <p id="modal-event-desc" style="margin-bottom: 20px; font-style: italic;"></p>
+            <form class="form-grid" id="booking-form">
+                <input type="hidden" name="event_id" id="modal-event-id">
+                <div class="full"><label>Full Name</label><input type="text" name="full_name" required maxlength="150"></div>
+                <div><label>Email</label><input type="email" name="email" required maxlength="200"></div>
+                <div><label>Phone</label><input type="tel" name="phone" maxlength="30"></div>
+                <div><label>Quantity</label><input type="number" name="quantity" min="1" max="20" value="1" required></div>
+                <div><label>Total</label><input type="text" id="modal-total" readonly value="$0.00"></div>
+                <div class="full"><button type="submit" class="btn-gold">Confirm Booking</button>
+                    <div id="booking-status" class="form-status"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-spotify"></i></a>
+        </div>
+        <p style="color: var(--cream)">Join the Inner Circle for exclusive invites.</p>
+        <form class="newsletter-form" id="newsletter-form">
+            <input type="email" name="email" placeholder="your@email.com" required maxlength="200">
+            <button type="submit" class="btn-gold" style="padding: 12px 20px;">Subscribe</button>
+        </form>
+        <div id="newsletter-status" class="form-status" style="max-width:400px;margin:10px auto;"></div>
+        <p class="footer-note">&copy; 2026 CLASSIC PRODUCTIONS. WASHINGTON D.C. | BALTIMORE. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script>
+        function escapeHtml(str) {
+            if (str == null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function safeCssUrl(url) {
+            if (!url) return '';
+            return String(url).replace(/['"\\()]/g, '');
+        }
+
+        // Load events from API
+        let eventsCache = [];
+        async function loadEvents() {
+            try {
+                const res = await fetch('/api/events');
+                if (!res.ok) throw new Error('Server error');
+                const events = await res.json();
+                eventsCache = events;
+                const grid = document.getElementById('event-grid');
+                if (!events.length) {
+                    grid.innerHTML = '<p>No upcoming events. Check back soon.</p>';
+                    return;
+                }
+                grid.innerHTML = events.map(e => {
+                    const date = new Date(e.event_date + 'T00:00:00');
+                    const month = date.toLocaleString('en', {month:'short'}).toUpperCase();
+                    const day = date.getDate().toString().padStart(2,'0');
+                    return `
+                        <div class="event-card">
+                            <div class="event-img" style="background-image: url('${safeCssUrl(e.image_url)}')">
+                                <div class="date-badge">${month}<br>${day}</div>
+                            </div>
+                            <div class="event-info">
+                                <span class="genre">${escapeHtml(e.genre)}</span>
+                                <h3>${escapeHtml(e.title)}</h3>
+                                <p>${escapeHtml(e.description)}</p>
+                                <p class="price">$${Number(e.ticket_price).toFixed(2)} &bull; ${escapeHtml(e.venue)}</p>
+                                <button class="btn-gold" onclick="openBooking(${Number(e.id)})">Book Tickets</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                document.getElementById('event-grid').innerHTML = '<p>Could not load events. Please try again later.</p>';
+            }
+        }
+        loadEvents();
+
+        // Booking modal
+        function openBooking(eventId) {
+            const ev = eventsCache.find(e => e.id === eventId);
+            if (!ev) return;
+            document.getElementById('modal-event-id').value = ev.id;
+            document.getElementById('modal-event-title').textContent = 'Book: ' + ev.title;
+            document.getElementById('modal-event-desc').textContent = ev.event_date + ' • $' + Number(ev.ticket_price).toFixed(2) + ' per ticket';
+            document.getElementById('modal-total').value = '$' + Number(ev.ticket_price).toFixed(2);
+            document.getElementById('booking-modal').classList.add('active');
+            document.querySelector('#booking-form [name=quantity]').oninput = (e) => {
+                const qty = Math.max(1, Math.min(20, parseInt(e.target.value) || 1));
+                document.getElementById('modal-total').value = '$' + (qty * ev.ticket_price).toFixed(2);
+            };
+        }
+        function closeModal() { document.getElementById('booking-modal').classList.remove('active'); }
+
+        // Generic form submitter
+        async function submitForm(formId, url, statusId) {
+            const form = document.getElementById(formId);
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const status = document.getElementById(statusId);
+                status.className = 'form-status';
+                const data = Object.fromEntries(new FormData(form));
+                try {
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(data)
+                    });
+                    const result = await res.json();
+                    if (res.ok && result.success) {
+                        status.className = 'form-status success';
+                        status.textContent = '✓ Success! We\'ll be in touch shortly.';
+                        form.reset();
+                    } else {
+                        status.className = 'form-status error';
+                        status.textContent = result.error || 'Something went wrong. Please try again.';
+                    }
+                } catch (err) {
+                    status.className = 'form-status error';
+                    status.textContent = 'Network error. Please check your connection and try again.';
+                }
+            });
+        }
+        submitForm('reservation-form', '/api/reservations', 'reservation-status');
+        submitForm('contact-form', '/api/contact', 'contact-status');
+        submitForm('booking-form', '/api/bookings', 'booking-status');
+        submitForm('newsletter-form', '/api/subscribe', 'newsletter-status');
+    </script>
+</body>
+</html>
