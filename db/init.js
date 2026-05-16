@@ -100,50 +100,59 @@ const existingAdmin = db.prepare('SELECT id FROM admins WHERE username = ?').get
 if (!existingAdmin) {
   const hash = bcrypt.hashSync(adminPassword, 10);
   db.prepare('INSERT INTO admins (username, password_hash) VALUES (?, ?)').run(adminUsername, hash);
-  console.log(`Admin created: ${adminUsername} / ${adminPassword}`);
+  console.log(`Admin created: ${adminUsername}`);
 } else {
   console.log('Admin already exists.');
 }
 
-// Seed events from the existing site
+// Seed events — D.C. & Baltimore nightlife lineup
 const eventCount = db.prepare('SELECT COUNT(*) as c FROM events').get().c;
 if (eventCount === 0) {
   const insertEvent = db.prepare(`
     INSERT INTO events (title, genre, description, event_date, event_time, venue, image_url, ticket_price, capacity)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
+
+  // R&B On the Water — harbor/waterfront at night, city lights on water
   insertEvent.run(
     'R&B On the Water',
     'R&B',
     'Sip, vibe, and feel the waterfront breeze as the DMV\'s finest R&B DJs set the mood at The Wharf. Semi-formal attire.',
     '2026-06-21', '19:00', 'The Wharf, Washington D.C.',
-    'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80',
+    '/rnb-on-the-water-card.svg',
     65.00, 200
   );
+
+  // Industry Night / Classic Productions — lounge scene
   insertEvent.run(
-    'Industry R&B',
+    'Industry Night / Classic Productions',
     'R&B / Hip-Hop',
     'An exclusive industry mixer where music, fashion, and culture collide. Baltimore\'s most connected night. VIP tables available.',
     '2026-07-11', '21:00', 'Pendry Baltimore, Harbor East',
-    'https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?auto=format&fit=crop&w=600&q=80',
+    '/industry-night-card.svg',
     100.00, 150
   );
+
+  // Afro-Beats Happy Hour — diverse women dancing outdoors under string lights
   insertEvent.run(
     'Afro-Beats Happy Hour',
     'Afro-Beats',
     'Afro-Beats, good vibes, and the best after-work reset in the DMV. D.C. and Baltimore unite on the dance floor.',
     '2026-07-25', '17:00', 'Yards Park, Capitol Riverfront, D.C.',
-    'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80',
+    '/afro-beats-card.svg',
     35.00, 300
   );
+
+  // Rooftop Day Party — diverse mixed group toasting on rooftop with city skyline
   insertEvent.run(
     'Rooftop Day Party',
     'Hip-Hop / R&B',
     'Hit the rooftop as the sun sets over the District. Day drinking, live DJ sets, and panoramic D.C. skyline views.',
     '2026-08-02', '15:00', '14th & U Street NW, Washington D.C.',
-    'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80',
+    '/rooftop-day-party-card.svg',
     55.00, 250
   );
+
   console.log('Seeded 4 events.');
 }
 

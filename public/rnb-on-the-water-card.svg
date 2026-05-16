@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#04111e"/>
+      <stop offset="50%"  stop-color="#071624"/>
+      <stop offset="100%" stop-color="#020609"/>
+    </linearGradient>
+    <linearGradient id="goldText" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#f5d47a"/>
+      <stop offset="40%"  stop-color="#e2a83a"/>
+      <stop offset="100%" stop-color="#9a6b10"/>
+    </linearGradient>
+    <linearGradient id="waterLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#0e4d6b" stop-opacity="0"/>
+      <stop offset="30%"  stop-color="#1a8fa8" stop-opacity="0.6"/>
+      <stop offset="70%"  stop-color="#1a8fa8" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0e4d6b" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="45%">
+      <stop offset="0%"  stop-color="#1a8fa8" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#04111e" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="diamonds" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <polygon points="20,2 38,20 20,38 2,20" fill="none" stroke="#1a8fa8" stroke-width="0.6" opacity="0.15"/>
+      <circle cx="20" cy="20" r="2" fill="#1a8fa8" opacity="0.1"/>
+    </pattern>
+    <pattern id="kente" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="none"/>
+      <rect x="0" y="0" width="6" height="6" fill="#e2a83a" opacity="0.15"/>
+      <rect x="6" y="6" width="6" height="6" fill="#1a8fa8" opacity="0.12"/>
+    </pattern>
+    <filter id="textGlow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0.7 0.8 1 0 0  0.2 0.5 0.7 0 0  0 0.3 0.6 0 0.2  0 0 0 0.8 0" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <rect width="600" height="400" fill="url(#diamonds)"/>
+  <rect width="600" height="400" fill="url(#glow)"/>
+
+  <!-- Kente borders -->
+  <rect x="0" y="0" width="600" height="8" fill="url(#kente)"/>
+  <rect x="0" y="392" width="600" height="8" fill="url(#kente)"/>
+  <rect x="0" y="0" width="8" height="400" fill="url(#kente)"/>
+  <rect x="592" y="0" width="8" height="400" fill="url(#kente)"/>
+
+  <!-- Corner diamonds -->
+  <polygon points="28,28 42,14 56,28 42,42" fill="none" stroke="#1a8fa8" stroke-width="1.2" opacity="0.5"/>
+  <polygon points="572,28 558,14 544,28 558,42" fill="none" stroke="#1a8fa8" stroke-width="1.2" opacity="0.5"/>
+  <polygon points="28,372 42,386 56,372 42,358" fill="none" stroke="#1a8fa8" stroke-width="1.2" opacity="0.5"/>
+  <polygon points="572,372 558,386 544,372 558,358" fill="none" stroke="#1a8fa8" stroke-width="1.2" opacity="0.5"/>
+
+  <!-- Water wave decorations -->
+  <path d="M 40 310 Q 100 298 160 310 Q 220 322 280 310 Q 340 298 400 310 Q 460 322 520 310 Q 560 302 580 308"
+        fill="none" stroke="#1a8fa8" stroke-width="1.2" opacity="0.3"/>
+  <path d="M 40 322 Q 110 308 180 322 Q 250 336 320 322 Q 390 308 460 322 Q 520 334 560 324"
+        fill="none" stroke="#1a8fa8" stroke-width="0.8" opacity="0.2"/>
+
+  <!-- Concentric arcs -->
+  <circle cx="300" cy="200" r="140" fill="none" stroke="#1a8fa8" stroke-width="0.5" opacity="0.12"/>
+  <circle cx="300" cy="200" r="155" fill="none" stroke="#e2a83a" stroke-width="0.5" opacity="0.08"/>
+
+  <!-- Horizontal rules -->
+  <line x1="40" y1="148" x2="210" y2="148" stroke="#e2a83a" stroke-width="0.8" opacity="0.4"/>
+  <line x1="390" y1="148" x2="560" y2="148" stroke="#e2a83a" stroke-width="0.8" opacity="0.4"/>
+  <line x1="40" y1="258" x2="560" y2="258" stroke="url(#waterLine)" stroke-width="1"/>
+
+  <!-- Diamond accents -->
+  <polygon points="300,140 308,148 300,156 292,148" fill="#e2a83a" opacity="0.55"/>
+
+  <!-- Tagline above -->
+  <text x="300" y="172" font-family="Georgia,'Times New Roman',serif" font-size="11"
+    fill="#1a8fa8" text-anchor="middle" letter-spacing="6" opacity="0.8">◆ THE WHARF · D.C. ◆</text>
+
+  <!-- Main title: R&B -->
+  <text x="300" y="222" font-family="Georgia,'Times New Roman',serif" font-size="80"
+    font-weight="700" fill="url(#goldText)" text-anchor="middle" letter-spacing="8"
+    filter="url(#textGlow)">R&amp;B</text>
+
+  <!-- Sub title: ON THE WATER -->
+  <text x="300" y="252" font-family="'Arial Narrow',Arial,sans-serif" font-size="24"
+    font-weight="300" fill="#ffffff" text-anchor="middle" letter-spacing="16" opacity="0.85">
+    ON THE WATER
+  </text>
+
+  <!-- Tagline below -->
+  <text x="300" y="288" font-family="Georgia,'Times New Roman',serif" font-size="10.5"
+    fill="#e2a83a" text-anchor="middle" letter-spacing="4" opacity="0.65">
+    WASHINGTON D.C.  ·  BALTIMORE
+  </text>
+
+  <!-- Dot accents -->
+  <circle cx="100" cy="200" r="2.5" fill="#1a8fa8" opacity="0.25"/>
+  <circle cx="500" cy="200" r="2.5" fill="#1a8fa8" opacity="0.25"/>
+  <circle cx="88"  cy="200" r="1.5" fill="#1a8fa8" opacity="0.15"/>
+  <circle cx="512" cy="200" r="1.5" fill="#1a8fa8" opacity="0.15"/>
+</svg>
