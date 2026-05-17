@@ -123,13 +123,13 @@ router.post('/reservations', (req, res) => {
 // ── POST /api/contact ─────────────────────────────────────────────────────────
 router.post('/contact', (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, phone, social_handles, subject, message } = req.body;
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Name, email, and message are required.' });
     }
     const result = db.prepare(
-      'INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)'
-    ).run(name, email, subject || null, message);
+      'INSERT INTO contact_messages (name, email, phone, social_handles, subject, message) VALUES (?, ?, ?, ?, ?, ?)'
+    ).run(name, email, phone || null, social_handles || null, subject || null, message);
     res.json({ success: true, id: result.lastInsertRowid });
   } catch (_) {
     res.status(500).json({ error: GENERIC_ERROR });

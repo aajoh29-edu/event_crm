@@ -31,6 +31,96 @@ router.get('/', (req, res) => {
 });
 
 // ── Single promoter — full detail with sales & client list ────────────────────
+router.get('/performance/events', (req, res) => {
+  try {
+    const rows = db.prepare(`
+      WITH promoter_event AS (
+        SELECT
+          e.id AS event_id,
+          e.title AS event_title,
+          e.event_date,
+          e.venue,
+          e.capacity,
+          p.id AS promoter_id,
+          p.name AS promoter_name,
+          COALESCE(SUM(b.quantity), 0) AS tickets_sold,
+          COALESCE(SUM(b.total_price), 0) AS ticket_revenue,
+          0 AS table_reservations,
+          0 AS table_guests
+        FROM events e
+        JOIN bookings b ON b.event_id = e.id AND b.promoter_id IS NOT NULL
+        JOIN promoters p ON p.id = b.promoter_id
+        GROUP BY e.id, p.id
+
+        UNION ALL
+
+        SELECT
+          e.id AS event_id,
+          e.title AS event_title,
+          e.event_date,
+          e.venue,
+          e.capacity,
+          p.id AS promoter_id,
+          p.name AS promoter_name,
+          0 AS tickets_sold,
+          0 AS ticket_revenue,
+          COUNT(r.id) AS table_reservations,
+          COALESCE(SUM(r.party_size), 0) AS table_guests
+        FROM events e
+        JOIN reservations r ON r.reservation_date = e.event_date AND r.promoter_id IS NOT NULL
+        JOIN promoters p ON p.id = r.promoter_id
+        GROUP BY e.id, p.id
+      )
+      SELECT
+        event_id,
+        event_title,
+        event_date,
+        venue,
+        capacity,
+        promoter_id,
+        promoter_name,
+        SUM(tickets_sold) AS tickets_sold,
+        SUM(ticket_revenue) AS ticket_revenue,
+        SUM(table_reservations) AS table_reservations,
+        SUM(table_guests) AS table_guests,
+        SUM(tickets_sold) + (SUM(table_reservations) * 4) AS performance_score
+      FROM promoter_event
+      GROUP BY event_id, promoter_id
+      ORDER BY event_date DESC, performance_score DESC, promoter_name ASC
+    `).all();
+
+    const grouped = [];
+    const byEvent = new Map();
+    for (const row of rows) {
+      if (!byEvent.has(row.event_id)) {
+        const event = {
+          id: row.event_id,
+          title: row.event_title,
+          event_date: row.event_date,
+          venue: row.venue,
+          capacity: row.capacity,
+          promoters: [],
+        };
+        byEvent.set(row.event_id, event);
+        grouped.push(event);
+      }
+      byEvent.get(row.event_id).promoters.push({
+        id: row.promoter_id,
+        name: row.promoter_name,
+        tickets_sold: row.tickets_sold,
+        ticket_revenue: row.ticket_revenue,
+        table_reservations: row.table_reservations,
+        table_guests: row.table_guests,
+        performance_score: row.performance_score,
+      });
+    }
+
+    res.json(grouped);
+  } catch (err) {
+    res.status(500).json({ error: GENERIC_ERROR });
+  }
+});
+
 router.get('/:id', (req, res) => {
   try {
     const promoter = db.prepare('SELECT * FROM promoters WHERE id = ?').get(req.params.id);

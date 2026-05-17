@@ -62,12 +62,24 @@
         .chart-bar .bar { flex: 1; height: 22px; background: rgba(197,160,89,0.15); border-radius: 3px; position: relative; overflow: hidden; }
         .chart-bar .fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
         .chart-bar .val { width: 80px; text-align: right; font-size: 0.85rem; color: var(--gold); }
+        .scale-event { padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .scale-event:last-child { border-bottom: none; }
+        .scale-event-head { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+        .scale-event-head strong { color: var(--gold); }
+        .scale-row { display: grid; grid-template-columns: 170px 1fr 230px; align-items: center; gap: 12px; margin: 9px 0; }
+        .scale-name { font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .scale-track { height: 18px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+        .scale-fill { height: 100%; background: linear-gradient(90deg, #d32f2f, #ffc107 45%, #4caf50); min-width: 2px; }
+        .scale-meta { font-size: .78rem; color: #aaa; white-space: nowrap; }
+        .scale-score { color: var(--gold); font-weight: 700; }
         .empty { text-align: center; padding: 40px; color: #666; }
         @media (max-width: 768px) {
             aside { width: 60px; }
             aside h2, .nav-item span, .logout-btn { display: none; }
             main { margin-left: 60px; padding: 20px; }
             .form-row { grid-template-columns: 1fr; }
+            .scale-row { grid-template-columns: 1fr; gap: 6px; }
+            .scale-meta { white-space: normal; }
         }
     </style>
 </head>
@@ -171,6 +183,10 @@
         <div class="page-header">
             <h1>Promoters</h1>
             <button class="btn" onclick="openPromoterModal()"><i class="fas fa-plus"></i> Add Promoter</button>
+        </div>
+        <div class="panel">
+            <h3>Event Performance Scale</h3>
+            <div id="promoter-event-scale"></div>
         </div>
         <div class="panel"><table id="promoters-table"></table></div>
     </div>
@@ -692,8 +708,12 @@ function closeModal(id) { document.getElementById(id).classList.remove('active')
 // PROMOTERS
 // ═══════════════════════════════════════════════════════════════════════════
 async function loadPromoters() {
-    const rows = await api('/promoters');
+    const [rows, scale] = await Promise.all([
+        api('/promoters'),
+        api('/promoters/performance/events')
+    ]);
     if (!rows) return;
+    renderPromoterEventScale(scale || []);
     document.getElementById('promoters-table').innerHTML = `
         <thead><tr><th>Name</th><th>Email</th><th>Commission</th><th>Clients</th><th>Ticket Sales</th><th>Table Reservations</th><th>Revenue</th><th>Status</th><th></th></tr></thead>
         <tbody>${rows.length ? rows.map(p => `
@@ -712,6 +732,46 @@ async function loadPromoters() {
                     <button class="btn btn-sm btn-danger" onclick="deletePromoter(${p.id})">Delete</button>
                 </td>
             </tr>`).join('') : '<tr><td colspan="9" class="empty">No promoters yet</td></tr>'}</tbody>`;
+}
+
+function renderPromoterEventScale(events) {
+    const el = document.getElementById('promoter-event-scale');
+    if (!events.length) {
+        el.innerHTML = '<div class="empty">No promoter ticket sales or event-day table reservations yet.</div>';
+        return;
+    }
+
+    el.innerHTML = events.map(event => {
+        const maxScore = Math.max(...event.promoters.map(p => Number(p.performance_score)), 1);
+        const totalTickets = event.promoters.reduce((sum, p) => sum + Number(p.tickets_sold || 0), 0);
+        const totalTables = event.promoters.reduce((sum, p) => sum + Number(p.table_reservations || 0), 0);
+        return `
+            <div class="scale-event">
+                <div class="scale-event-head">
+                    <div>
+                        <strong>${escapeHtml(event.title)}</strong>
+                        <div style="color:#888;font-size:.82rem">${escapeHtml(event.event_date)} ${event.venue ? '&bull; ' + escapeHtml(event.venue) : ''}</div>
+                    </div>
+                    <div class="scale-meta">${totalTickets} tickets &bull; ${totalTables} table reservations</div>
+                </div>
+                ${event.promoters.map(p => {
+                    const score = Number(p.performance_score || 0);
+                    const pct = Math.max(2, (score / maxScore) * 100);
+                    return `
+                        <div class="scale-row">
+                            <div class="scale-name">${escapeHtml(p.name)}</div>
+                            <div class="scale-track" title="Score ${score}: tickets plus 4 points per table reservation">
+                                <div class="scale-fill" style="width:${pct.toFixed(1)}%"></div>
+                            </div>
+                            <div class="scale-meta">
+                                <span class="scale-score">${score}</span> score &bull;
+                                ${Number(p.tickets_sold || 0)} tickets &bull;
+                                ${Number(p.table_reservations || 0)} tables
+                            </div>
+                        </div>`;
+                }).join('')}
+            </div>`;
+    }).join('');
 }
 
 function openPromoterModal(p = null) {
@@ -1069,6 +1129,31 @@ async function viewCustomer(id) {
         <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal('customer-detail-modal')">Close</button></div>
     `;
     document.getElementById('customer-detail-modal').classList.add('active');
+}
+
+async function loadMessages() {
+    const rows = await api('/messages');
+    if (!rows) return;
+    document.getElementById('messages-table').innerHTML = `
+        <thead><tr><th>From</th><th>Phone</th><th>Social</th><th>Subject</th><th>Message</th><th>Status</th><th>Date</th><th></th></tr></thead>
+        <tbody>${rows.length ? rows.map(m => `
+            <tr style="${m.status === 'unread' ? 'background:rgba(197,160,89,0.05);' : ''}">
+                <td><strong>${escapeHtml(m.name)}</strong><br><small style="color:#888">${escapeHtml(m.email)}</small></td>
+                <td>${escapeHtml(m.phone) || '-'}</td>
+                <td>${escapeHtml(m.social_handles) || '-'}</td>
+                <td>${escapeHtml(m.subject) || '-'}</td>
+                <td style="max-width:300px;">${escapeHtml(m.message)}</td>
+                <td>
+                    <select onchange="updateMessageStatus(${m.id}, this.value)" style="background:rgba(255,255,255,0.05);color:white;border:1px solid var(--border);padding:4px;">
+                        <option ${m.status==='unread'?'selected':''}>unread</option>
+                        <option ${m.status==='read'?'selected':''}>read</option>
+                        <option ${m.status==='replied'?'selected':''}>replied</option>
+                    </select>
+                </td>
+                <td>${escapeHtml((m.created_at || '').split(' ')[0])}</td>
+                <td><button class="btn btn-sm btn-danger" onclick="deleteMessage(${m.id})">Delete</button></td>
+            </tr>`).join('') : '<tr><td colspan="8" class="empty">No messages</td></tr>'}</tbody>
+    `;
 }
 
 // Initial load

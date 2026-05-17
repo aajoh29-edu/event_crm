@@ -85,6 +85,8 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
+    phone TEXT,
+    social_handles TEXT,
     subject TEXT,
     message TEXT NOT NULL,
     status TEXT DEFAULT 'unread',

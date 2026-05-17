@@ -115,6 +115,8 @@ function migrate() {
     'ALTER TABLE customers ADD COLUMN email_opt_in INTEGER DEFAULT 1',
     'ALTER TABLE customers ADD COLUMN sms_opt_in INTEGER DEFAULT 1',
     'ALTER TABLE customers ADD COLUMN social_opt_in INTEGER DEFAULT 1',
+    'ALTER TABLE contact_messages ADD COLUMN phone TEXT',
+    'ALTER TABLE contact_messages ADD COLUMN social_handles TEXT',
   ]) {
     try { db.exec(sql); } catch (e) {
       if (!e.message.includes('duplicate column')) throw e;
