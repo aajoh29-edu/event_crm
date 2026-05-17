@@ -23,6 +23,15 @@ db.exec(`
     last_name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     phone TEXT,
+    social_handles TEXT,
+    preferred_event_types TEXT,
+    preferred_drinks TEXT,
+    preferred_party_types TEXT,
+    preferred_music TEXT,
+    preferred_venue_types TEXT,
+    email_opt_in INTEGER DEFAULT 1,
+    sms_opt_in INTEGER DEFAULT 1,
+    social_opt_in INTEGER DEFAULT 1,
     vip_status INTEGER DEFAULT 0,
     notes TEXT,
     total_spent REAL DEFAULT 0,
@@ -87,6 +96,55 @@ db.exec(`
     email TEXT UNIQUE NOT NULL,
     subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     active INTEGER DEFAULT 1
+  );
+
+  CREATE TABLE IF NOT EXISTS preference_game_submissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id INTEGER,
+    promoter_id INTEGER,
+    full_name TEXT,
+    email TEXT,
+    phone TEXT,
+    social_handles TEXT,
+    preferred_drinks TEXT,
+    preferred_party_types TEXT,
+    preferred_music TEXT,
+    preferred_venue_types TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (promoter_id) REFERENCES promoters(id)
+  );
+
+  CREATE TABLE IF NOT EXISTS blast_campaigns (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    audience TEXT DEFAULT 'all',
+    channels TEXT NOT NULL,
+    message_subject TEXT,
+    message_body TEXT NOT NULL,
+    event_id INTEGER,
+    triggered_by TEXT DEFAULT 'admin',
+    status TEXT DEFAULT 'queued',
+    attempted_count INTEGER DEFAULT 0,
+    sent_count INTEGER DEFAULT 0,
+    queued_count INTEGER DEFAULT 0,
+    failed_count INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (event_id) REFERENCES events(id)
+  );
+
+  CREATE TABLE IF NOT EXISTS blast_messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    campaign_id INTEGER NOT NULL,
+    customer_id INTEGER,
+    channel TEXT NOT NULL,
+    status TEXT DEFAULT 'queued',
+    destination TEXT,
+    message_preview TEXT,
+    error_message TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (campaign_id) REFERENCES blast_campaigns(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
   );
 `);
 

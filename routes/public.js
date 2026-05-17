@@ -22,16 +22,26 @@ function resolvePromoter(ref) {
 /**
  * Upsert customer; returns customer id.
  */
-function upsertCustomer(full_name, email, phone) {
+function splitName(full_name) {
+  const parts = String(full_name || '').trim().split(/\s+/).filter(Boolean);
+  return { first: parts[0] || 'Guest', last: parts.slice(1).join(' ') || '' };
+}
+
+function upsertCustomer(full_name, email, phone, social_handles = null) {
   let customer = db.prepare('SELECT id FROM customers WHERE email = ?').get(email);
   if (!customer) {
-    const parts = String(full_name).trim().split(' ');
-    const first = parts[0];
-    const last  = parts.slice(1).join(' ') || '';
+    const { first, last } = splitName(full_name);
     const r = db.prepare(
-      'INSERT INTO customers (first_name, last_name, email, phone) VALUES (?, ?, ?, ?)'
-    ).run(first, last, email, phone || null);
+      'INSERT INTO customers (first_name, last_name, email, phone, social_handles) VALUES (?, ?, ?, ?, ?)'
+    ).run(first, last, email, phone || null, social_handles || null);
     customer = { id: r.lastInsertRowid };
+  } else {
+    db.prepare(`
+      UPDATE customers
+      SET phone = COALESCE(NULLIF(?, ''), phone),
+          social_handles = COALESCE(NULLIF(?, ''), social_handles)
+      WHERE id = ?
+    `).run(phone || '', social_handles || '', customer.id);
   }
   return customer.id;
 }
@@ -181,6 +191,64 @@ router.post('/bookings', (req, res) => {
     ).run(total, customer_id);
 
     res.json({ success: true, booking_id: result.lastInsertRowid, total });
+  } catch (_) {
+    res.status(500).json({ error: GENERIC_ERROR });
+  }
+});
+
+// POST /api/preference-game
+router.post('/preference-game', (req, res) => {
+  try {
+    const {
+      full_name, email, phone, social_handles, ref,
+      preferred_drinks, preferred_party_types, preferred_music, preferred_venue_types,
+    } = req.body;
+
+    if (!full_name || !email) {
+      return res.status(400).json({ error: 'Name and email are required.' });
+    }
+
+    const asCsv = value => Array.isArray(value)
+      ? value.slice(0, 20).map(String).join(', ')
+      : String(value || '').slice(0, 500);
+
+    const drinks = asCsv(preferred_drinks);
+    const parties = asCsv(preferred_party_types);
+    const music = asCsv(preferred_music);
+    const venues = asCsv(preferred_venue_types);
+    const promoter = resolvePromoter(ref);
+    const customer_id = upsertCustomer(full_name, email, phone, social_handles);
+
+    if (promoter) linkPromoterClient(promoter.id, customer_id);
+
+    db.prepare(`
+      INSERT INTO preference_game_submissions
+        (customer_id, promoter_id, full_name, email, phone, social_handles,
+         preferred_drinks, preferred_party_types, preferred_music, preferred_venue_types)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      customer_id, promoter ? promoter.id : null, full_name, email, phone || null,
+      social_handles || null, drinks, parties, music, venues
+    );
+
+    db.prepare(`
+      UPDATE customers
+      SET phone = COALESCE(NULLIF(?, ''), phone),
+          social_handles = COALESCE(NULLIF(?, ''), social_handles),
+          preferred_drinks = ?,
+          preferred_party_types = ?,
+          preferred_music = ?,
+          preferred_venue_types = ?,
+          preferred_event_types = trim(
+            COALESCE(NULLIF(?, ''), '') || CASE WHEN ? <> '' AND ? <> '' THEN ', ' ELSE '' END || COALESCE(NULLIF(?, ''), '')
+          )
+      WHERE id = ?
+    `).run(
+      phone || '', social_handles || '', drinks, parties, music, venues,
+      parties, parties, venues, venues, customer_id
+    );
+
+    res.json({ success: true, customer_id });
   } catch (_) {
     res.status(500).json({ error: GENERIC_ERROR });
   }

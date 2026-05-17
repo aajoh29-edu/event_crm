@@ -83,6 +83,7 @@
         <div class="nav-item" data-view="reservations"><i class="fas fa-utensils"></i><span>Reservations</span></div>
         <div class="nav-item" data-view="messages"><i class="fas fa-envelope"></i><span>Messages</span></div>
         <div class="nav-item" data-view="subscribers"><i class="fas fa-paper-plane"></i><span>Subscribers</span></div>
+        <div class="nav-item" data-view="blasts"><i class="fas fa-broadcast-tower"></i><span>Blasts</span></div>
         <div class="nav-item" data-view="promoters"><i class="fas fa-bullhorn"></i><span>Promoters</span></div>
         <div class="nav-item" data-view="venue-analytics"><i class="fas fa-building"></i><span>Venue Analytics</span></div>
         <div class="nav-item" data-view="ai-agent"><i class="fas fa-robot"></i><span>AI Agent</span></div>
@@ -149,6 +150,20 @@
     <div class="view" id="view-subscribers">
         <div class="page-header"><h1>Newsletter Subscribers</h1></div>
         <div class="panel"><table id="subscribers-table"></table></div>
+    </div>
+
+    <!-- BLASTS -->
+    <div class="view" id="view-blasts">
+        <div class="page-header">
+            <h1>Customer Blasts</h1>
+            <button class="btn" onclick="openBlastModal()"><i class="fas fa-paper-plane"></i> New Blast</button>
+        </div>
+        <div class="stats-grid" id="blast-stats"></div>
+        <div class="panel"><table id="blasts-table"></table></div>
+        <div class="panel">
+            <h3>Blast Delivery Log</h3>
+            <table id="blast-messages-table"></table>
+        </div>
     </div>
 
     <!-- PROMOTERS -->
@@ -249,11 +264,47 @@
             </div>
             <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
             <div class="form-group"><label>Phone</label><input type="tel" name="phone"></div>
+            <div class="form-group"><label>Social Handles / DM Targets</label><input type="text" name="social_handles" placeholder="@instagram, @x, facebook profile"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Preferred Drinks</label><input type="text" name="preferred_drinks" placeholder="Vodka, Tequila"></div>
+                <div class="form-group"><label>Preferred Music</label><input type="text" name="preferred_music" placeholder="Hip Hop, Afro Beats"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Preferred Party Types</label><input type="text" name="preferred_party_types" placeholder="Lounge, Club, Day Party"></div>
+                <div class="form-group"><label>Preferred Venue Types</label><input type="text" name="preferred_venue_types" placeholder="Waterfront, Rooftop, Yacht"></div>
+            </div>
+            <div class="form-group"><label>Event Type Summary</label><input type="text" name="preferred_event_types" placeholder="Auto-filled from past events or game"></div>
+            <div class="form-row">
+                <div class="form-group"><label><input type="checkbox" name="email_opt_in" checked> Email Opt-in</label></div>
+                <div class="form-group"><label><input type="checkbox" name="sms_opt_in" checked> SMS Opt-in</label></div>
+            </div>
+            <div class="form-group"><label><input type="checkbox" name="social_opt_in" checked> Social DM Opt-in</label></div>
             <div class="form-group"><label><input type="checkbox" name="vip_status"> VIP Status</label></div>
             <div class="form-group"><label>Notes</label><textarea name="notes" rows="3"></textarea></div>
             <div class="modal-actions">
                 <button type="button" class="btn btn-outline" onclick="closeModal('customer-modal')">Cancel</button>
                 <button type="submit" class="btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- BLAST MODAL -->
+<div class="modal" id="blast-modal">
+    <div class="modal-content">
+        <h3>New Customer Blast</h3>
+        <form id="blast-form">
+            <div class="form-group"><label>Campaign Title</label><input type="text" name="title" required maxlength="160"></div>
+            <div class="form-group"><label>Email Subject</label><input type="text" name="subject" maxlength="160"></div>
+            <div class="form-group"><label>Message</label><textarea name="body" rows="5" required maxlength="1500"></textarea></div>
+            <div class="form-row">
+                <div class="form-group"><label><input type="checkbox" name="channels" value="email" checked> Email</label></div>
+                <div class="form-group"><label><input type="checkbox" name="channels" value="sms" checked> Text Message</label></div>
+            </div>
+            <div class="form-group"><label><input type="checkbox" name="channels" value="social_dm" checked> Social DM Queue</label></div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('blast-modal')">Cancel</button>
+                <button type="submit" class="btn">Send / Queue Blast</button>
             </div>
         </form>
     </div>
@@ -339,6 +390,7 @@ document.querySelectorAll('.nav-item').forEach(item => {
         if (view === 'reservations') loadReservations();
         if (view === 'messages') loadMessages();
         if (view === 'subscribers') loadSubscribers();
+        if (view === 'blasts') loadBlasts();
         if (view === 'promoters') loadPromoters();
         if (view === 'venue-analytics') loadVenueAnalytics();
         if (view === 'ai-agent') loadAgentView();
@@ -421,14 +473,31 @@ function openCustomerModal(c = null) {
         form.last_name.value = c.last_name;
         form.email.value = c.email;
         form.phone.value = c.phone || '';
+        form.social_handles.value = c.social_handles || '';
+        form.preferred_drinks.value = c.preferred_drinks || '';
+        form.preferred_music.value = c.preferred_music || '';
+        form.preferred_party_types.value = c.preferred_party_types || '';
+        form.preferred_venue_types.value = c.preferred_venue_types || '';
+        form.preferred_event_types.value = c.preferred_event_types || '';
+        form.email_opt_in.checked = c.email_opt_in !== 0;
+        form.sms_opt_in.checked = c.sms_opt_in !== 0;
+        form.social_opt_in.checked = c.social_opt_in !== 0;
         form.vip_status.checked = !!c.vip_status;
         form.notes.value = c.notes || '';
-    } else form.id.value = '';
+    } else {
+        form.id.value = '';
+        form.email_opt_in.checked = true;
+        form.sms_opt_in.checked = true;
+        form.social_opt_in.checked = true;
+    }
     document.getElementById('customer-modal').classList.add('active');
 }
 document.getElementById('customer-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
+    data.email_opt_in = !!data.email_opt_in;
+    data.sms_opt_in = !!data.sms_opt_in;
+    data.social_opt_in = !!data.social_opt_in;
     data.vip_status = !!data.vip_status;
     const id = data.id; delete data.id;
     await api(id ? `/customers/${id}` : '/customers', { method: id ? 'PUT' : 'POST', body: data });
@@ -843,6 +912,163 @@ async function runAgent() {
         alert(`Agent complete.\nDormant customers found: ${result.customers_found}\nMessages sent: ${result.outreach_sent}`);
         loadAgentView();
     }
+}
+
+// ===== CUSTOMER BLASTS =====
+async function loadCustomers() {
+    const q = document.getElementById('customer-search').value;
+    const rows = await api('/customers?q=' + encodeURIComponent(q));
+    if (!rows) return;
+    document.getElementById('customers-table').innerHTML = `
+        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Social</th><th>Preferences</th><th>Status</th><th>Total Spent</th><th>Joined</th><th></th></tr></thead>
+        <tbody>${rows.length ? rows.map(c => `
+            <tr>
+                <td><a href="#" onclick="viewCustomer(${c.id}); return false;" style="color:var(--gold)">${escapeHtml(c.first_name)} ${escapeHtml(c.last_name)}</a></td>
+                <td>${escapeHtml(c.email)}</td>
+                <td>${escapeHtml(c.phone) || '-'}</td>
+                <td>${escapeHtml(c.social_handles) || '-'}</td>
+                <td style="max-width:240px;font-size:.82rem">${escapeHtml([c.preferred_drinks, c.preferred_music, c.preferred_party_types, c.preferred_venue_types].filter(Boolean).join(' | ')) || '-'}</td>
+                <td>${c.vip_status ? '<span class="badge badge-vip">VIP</span>' : '-'}</td>
+                <td>$${Number(c.total_spent).toFixed(2)}</td>
+                <td>${escapeHtml((c.created_at || '').split(' ')[0])}</td>
+                <td>
+                    <button class="btn btn-sm" onclick='openCustomerModal(${JSON.stringify(c)})'>Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteCustomer(${c.id})">Delete</button>
+                </td>
+            </tr>`).join('') : '<tr><td colspan="9" class="empty">No customers yet</td></tr>'}</tbody>
+    `;
+}
+
+async function loadEvents() {
+    const rows = await api('/events');
+    if (!rows) return;
+    document.getElementById('events-table').innerHTML = `
+        <thead><tr><th>Title</th><th>Date</th><th>Genre</th><th>Price</th><th>Bookings</th><th>Revenue</th><th>Status</th><th></th></tr></thead>
+        <tbody>${rows.length ? rows.map(e => `
+            <tr>
+                <td><strong>${escapeHtml(e.title)}</strong><br><small style="color:#888">${escapeHtml(e.venue) || ''}</small></td>
+                <td>${escapeHtml(e.event_date)} ${escapeHtml(e.event_time) || ''}</td>
+                <td>${escapeHtml(e.genre) || '-'}</td>
+                <td>$${Number(e.ticket_price).toFixed(2)}</td>
+                <td>${Number(e.bookings_count)}</td>
+                <td>$${Number(e.revenue).toFixed(2)}</td>
+                <td><span class="badge badge-${e.status === 'active' ? 'success' : 'danger'}">${escapeHtml(e.status)}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-outline" onclick="blastEvent(${e.id})">Blast</button>
+                    <button class="btn btn-sm" onclick='openEventModal(${JSON.stringify(e)})'>Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteEvent(${e.id})">Delete</button>
+                </td>
+            </tr>`).join('') : '<tr><td colspan="8" class="empty">No events</td></tr>'}</tbody>
+    `;
+}
+
+function openBlastModal() {
+    const form = document.getElementById('blast-form');
+    form.reset();
+    form.querySelectorAll('[name=channels]').forEach(c => c.checked = true);
+    document.getElementById('blast-modal').classList.add('active');
+}
+
+document.getElementById('blast-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const channels = [...form.querySelectorAll('[name=channels]:checked')].map(c => c.value);
+    const data = Object.fromEntries(new FormData(form));
+    data.channels = channels;
+    const result = await api('/blasts', { method: 'POST', body: data });
+    if (result && result.success) {
+        alert(`Blast complete.\nAttempted: ${result.attempted}\nSent: ${result.sent}\nQueued: ${result.queued}\nFailed: ${result.failed}`);
+        closeModal('blast-modal');
+        loadBlasts();
+    }
+});
+
+async function loadBlasts() {
+    const rows = await api('/blasts');
+    if (!rows) return;
+    const totals = rows.reduce((acc, b) => {
+        acc.sent += Number(b.sent_count || 0);
+        acc.queued += Number(b.queued_count || 0);
+        acc.failed += Number(b.failed_count || 0);
+        return acc;
+    }, { sent: 0, queued: 0, failed: 0 });
+    document.getElementById('blast-stats').innerHTML = `
+        <div class="stat-card"><h4>Campaigns</h4><div class="value">${rows.length}</div></div>
+        <div class="stat-card"><h4>Sent</h4><div class="value">${totals.sent}</div></div>
+        <div class="stat-card"><h4>Queued</h4><div class="value">${totals.queued}</div></div>
+        <div class="stat-card"><h4>Failed</h4><div class="value">${totals.failed}</div></div>`;
+    document.getElementById('blasts-table').innerHTML = `
+        <thead><tr><th>Campaign</th><th>Channels</th><th>Event</th><th>Status</th><th>Attempted</th><th>Sent</th><th>Queued</th><th>Failed</th><th>Created</th></tr></thead>
+        <tbody>${rows.length ? rows.map(b => `
+            <tr onclick="loadBlastMessages(${b.id})" style="cursor:pointer">
+                <td><strong>${escapeHtml(b.title)}</strong><br><small style="color:#888">${escapeHtml(b.message_subject || '')}</small></td>
+                <td>${escapeHtml(formatChannels(b.channels))}</td>
+                <td>${escapeHtml(b.event_title || '-')}</td>
+                <td><span class="badge badge-${b.status === 'completed' ? 'success' : 'pending'}">${escapeHtml(b.status)}</span></td>
+                <td>${Number(b.attempted_count)}</td>
+                <td>${Number(b.sent_count)}</td>
+                <td>${Number(b.queued_count)}</td>
+                <td>${Number(b.failed_count)}</td>
+                <td>${escapeHtml((b.created_at || '').split(' ')[0])}</td>
+            </tr>`).join('') : '<tr><td colspan="9" class="empty">No blasts yet</td></tr>'}</tbody>`;
+    document.getElementById('blast-messages-table').innerHTML = '<tbody><tr><td class="empty">Select a campaign to view delivery details.</td></tr></tbody>';
+}
+
+function formatChannels(raw) {
+    try { return JSON.parse(raw).join(', '); } catch (_) { return raw || ''; }
+}
+
+async function loadBlastMessages(id) {
+    const rows = await api(`/blasts/${id}/messages`);
+    if (!rows) return;
+    document.getElementById('blast-messages-table').innerHTML = `
+        <thead><tr><th>Customer</th><th>Channel</th><th>Status</th><th>Destination</th><th>Preview</th><th>Created</th></tr></thead>
+        <tbody>${rows.length ? rows.map(m => `
+            <tr>
+                <td>${escapeHtml(m.first_name || '')} ${escapeHtml(m.last_name || '')}<br><small style="color:#888">${escapeHtml(m.email || '')}</small></td>
+                <td>${escapeHtml(m.channel)}</td>
+                <td><span class="badge badge-${m.status === 'sent' ? 'success' : m.status === 'failed' ? 'danger' : 'pending'}">${escapeHtml(m.status)}</span></td>
+                <td>${escapeHtml(m.destination || '')}</td>
+                <td style="max-width:280px;font-size:.82rem">${escapeHtml(m.message_preview || m.error_message || '')}</td>
+                <td>${escapeHtml((m.created_at || '').split(' ')[0])}</td>
+            </tr>`).join('') : '<tr><td colspan="6" class="empty">No delivery records</td></tr>'}</tbody>`;
+}
+
+async function blastEvent(id) {
+    if (!confirm('Send or queue a new-event blast for this event?')) return;
+    const result = await api(`/events/${id}/blast`, { method: 'POST' });
+    if (result && result.success) {
+        alert(`Event blast complete.\nAttempted: ${result.attempted || 0}\nSent: ${result.sent || 0}\nQueued: ${result.queued || 0}\nFailed: ${result.failed || 0}`);
+    }
+}
+
+async function viewCustomer(id) {
+    const c = await api('/customers/' + id);
+    if (!c) return;
+    const inferred = c.inferredPreferences || [];
+    document.getElementById('customer-detail-content').innerHTML = `
+        <h3>${escapeHtml(c.first_name)} ${escapeHtml(c.last_name)} ${c.vip_status ? '<span class="badge badge-vip">VIP</span>' : ''}</h3>
+        <p style="margin:10px 0;color:#aaa">${escapeHtml(c.email)} &bull; ${escapeHtml(c.phone) || 'No phone'} &bull; ${escapeHtml(c.social_handles) || 'No social handles'}</p>
+        <p style="margin-bottom:12px"><strong style="color:var(--gold)">Opt-ins:</strong> Email ${c.email_opt_in ? 'Yes' : 'No'} &bull; SMS ${c.sms_opt_in ? 'Yes' : 'No'} &bull; Social ${c.social_opt_in ? 'Yes' : 'No'}</p>
+        <p style="margin-bottom:20px"><strong style="color:var(--gold)">Total spent:</strong> $${Number(c.total_spent).toFixed(2)}</p>
+        <div class="panel" style="background:rgba(197,160,89,0.05)">
+            <strong>Preference Profile</strong><br>
+            Drinks: ${escapeHtml(c.preferred_drinks) || 'None'}<br>
+            Music: ${escapeHtml(c.preferred_music) || 'None'}<br>
+            Party Types: ${escapeHtml(c.preferred_party_types) || 'None'}<br>
+            Venue Types: ${escapeHtml(c.preferred_venue_types) || 'None'}<br>
+            Event Summary: ${escapeHtml(c.preferred_event_types) || 'None'}
+        </div>
+        <h4 style="color:var(--gold);margin:20px 0 10px">Inferred From Events Attended</h4>
+        ${inferred.length ? inferred.map(p => `<div style="padding:8px 0;border-bottom:1px solid var(--border)">${escapeHtml(p.genre || 'Unknown genre')} at ${escapeHtml(p.venue || 'Unknown venue')} &bull; ${Number(p.attended_count)} attended</div>`).join('') : '<p style="color:#666">No attendance history yet</p>'}
+        <h4 style="color:var(--gold); margin:20px 0 10px">Bookings (${c.bookings.length})</h4>
+        ${c.bookings.length ? c.bookings.map(b => `<div style="padding:8px 0;border-bottom:1px solid var(--border)">${escapeHtml(b.event_title) || 'Unknown event'} - ${Number(b.quantity)} ticket(s) - $${Number(b.total_price).toFixed(2)}</div>`).join('') : '<p style="color:#666">None</p>'}
+        <h4 style="color:var(--gold); margin:20px 0 10px">Preference Game (${c.preferences.length})</h4>
+        ${c.preferences.length ? c.preferences.map(p => `<div style="padding:8px 0;border-bottom:1px solid var(--border)">Drinks: ${escapeHtml(p.preferred_drinks) || 'None'} - Music: ${escapeHtml(p.preferred_music) || 'None'} - Venues: ${escapeHtml(p.preferred_venue_types) || 'None'}</div>`).join('') : '<p style="color:#666">None</p>'}
+        ${c.notes ? `<div class="panel" style="background:rgba(197,160,89,0.05)"><strong>Notes:</strong> ${escapeHtml(c.notes)}</div>` : ''}
+        <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal('customer-detail-modal')">Close</button></div>
+    `;
+    document.getElementById('customer-detail-modal').classList.add('active');
 }
 
 // Initial load
