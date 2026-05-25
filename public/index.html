@@ -3,364 +3,1892 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classic Productions | Hip-Hop & R&B Events | D.C. & Baltimore</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOK5K+g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Classic Productions | Premium DMV Event Experiences</title>
+    <meta name="description" content="DMV's premier luxury event production company. 10+ years of curated nightlife excellence. Join the guestlist.">
+    <meta property="og:title" content="Classic Productions — Where the Culture Comes to Life">
+    <meta property="og:description" content="Curated nightlife experiences for the discerning few. Washington DC, Maryland, Virginia.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        /* ============================================================
+           ROOT VARIABLES — LUXURY COLOR SYSTEM
+           ============================================================ */
         :root {
-            --gold: #c5a059;
-            --gold-light: #e2c285;
-            --cream: #f4f1ea;
-            --dark-charcoal: #121212;
-            --white: #ffffff;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --black-deep:      #06040A;
+            --black-rich:      #0D0912;
+            --black-warm:      #140C1A;
+            --black-card:      #1A1025;
+            --black-border:    #2A1D38;
+
+            --gold-primary:    #C9A84C;
+            --gold-light:      #E8CC82;
+            --gold-bright:     #F5D680;
+            --gold-champagne:  #F5E6B3;
+            --gold-dim:        #8A6E2A;
+
+            --purple-deep:     #2D1B4E;
+            --purple-mid:      #4A2D7A;
+            --purple-glow:     #7B4FC0;
+
+            --amber-warm:      #C47A1A;
+
+            --text-primary:    #F5E6B3;
+            --text-secondary:  #C4A96E;
+            --text-muted:      #8A7A5C;
+
+            --gradient-hero:   linear-gradient(165deg, #06040A 0%, #130919 30%, #1A0E28 55%, #0D0812 80%, #080510 100%);
+            --gradient-gold:   linear-gradient(135deg, #8A6E2A 0%, #C9A84C 35%, #F5D680 60%, #C9A84C 80%, #8A6E2A 100%);
+            --gradient-card:   linear-gradient(145deg, #1A1025 0%, #120C1C 100%);
+
+            --font-display:    'Cormorant Garamond', serif;
+            --font-body:       'Montserrat', sans-serif;
+
+            --radius-sm:       4px;
+            --radius-md:       8px;
+            --radius-lg:       16px;
+
+            --transition:      all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-slow: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Playfair Display', serif, 'Segoe UI', Arial; }
-        body { background-color: var(--dark-charcoal); color: var(--white); line-height: 1.6; }
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 8%; background: rgba(18, 18, 18, 0.95);
-            position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            background-color: var(--black-deep);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; }
-        .nav-links { display: flex; list-style: none; }
-        .nav-links li { margin-left: 35px; }
-        .nav-links a { text-decoration: none; color: var(--cream); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); cursor: pointer; }
-        .nav-links a:hover { color: var(--gold); }
-        .hero {
-            height: 90vh;
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.72)),
-                        url('https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-position: center top;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding-top: 80px;
+
+        ::selection { background: var(--gold-primary); color: var(--black-deep); }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--black-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+        /* ============================================================
+           TYPOGRAPHY
+           ============================================================ */
+        .display-hero {
+            font-family: var(--font-display);
+            font-size: clamp(3.8rem, 9vw, 9rem);
+            font-weight: 300;
+            line-height: 0.95;
+            letter-spacing: 0.08em;
         }
-        .hero-location {
-            font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 5px;
-            margin-bottom: 18px; font-style: normal;
+
+        .display-lg {
+            font-family: var(--font-display);
+            font-size: clamp(1.9rem, 3.5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: 0.04em;
         }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); color: var(--white); margin-bottom: 15px; letter-spacing: 2px; }
-        .hero p { color: var(--gold); font-style: italic; font-size: 1.4rem; margin-bottom: 40px; }
-        .btn-gold {
-            padding: 14px 35px; background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            color: var(--dark-charcoal); text-decoration: none; font-weight: 700;
-            text-transform: uppercase; border-radius: 4px; transition: var(--transition);
-            border: none; cursor: pointer; font-size: 0.9rem;
+
+        .label-track {
+            font-family: var(--font-body);
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            display: block;
         }
-        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
-        .section { padding: 100px 8%; background-color: var(--cream); color: var(--dark-charcoal); }
-        .section-dark { background: var(--dark-charcoal); color: var(--white); }
-        .section-header {
-            display: flex; justify-content: space-between; align-items: flex-end;
-            margin-bottom: 60px; border-bottom: 1px solid #ddd; padding-bottom: 20px;
+
+        /* ============================================================
+           LAYOUT
+           ============================================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 4vw, 4rem);
         }
-        .section-dark .section-header { border-bottom-color: rgba(197,160,89,0.3); }
-        .section-title h2 { font-size: 2.5rem; text-transform: uppercase; }
-        .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .event-card { background: var(--white); border: 1px solid #eee; transition: var(--transition); }
-        .event-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .event-img { height: 250px; background-size: cover; background-position: center; position: relative; }
-        .date-badge { position: absolute; top: 0; right: 0; background: var(--dark-charcoal); color: var(--gold); padding: 10px 15px; text-align: center; font-weight: bold; }
-        .event-info { padding: 25px; }
-        .event-info h3 { font-size: 1.4rem; margin-bottom: 10px; }
-        .genre { color: var(--gold); font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
-        .event-info .price { font-weight: bold; margin: 10px 0; }
-        .event-info button { margin-top: 12px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 700px; margin: 0 auto; }
-        .form-grid .full { grid-column: 1 / -1; }
-        .form-grid label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: var(--gold); }
-        .form-grid input, .form-grid select, .form-grid textarea {
-            width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(197,160,89,0.3);
-            color: var(--white); font-size: 1rem; font-family: inherit;
+
+        .section-pad    { padding: clamp(5rem, 10vw, 9rem) 0; }
+        .section-pad-sm { padding: clamp(3rem, 6vw, 5rem) 0; }
+        .text-center    { text-align: center; }
+
+        .gold-line {
+            display: block;
+            width: 56px;
+            height: 1px;
+            background: var(--gradient-gold);
+            margin: 1.5rem auto;
         }
-        .section:not(.section-dark) .form-grid input,
-        .section:not(.section-dark) .form-grid select,
-        .section:not(.section-dark) .form-grid textarea {
-            background: var(--white); border-color: #ddd; color: var(--dark-charcoal);
+        .gold-line-left {
+            display: block;
+            width: 56px;
+            height: 1px;
+            background: var(--gradient-gold);
+            margin: 1.5rem 0;
         }
-        .form-grid textarea { resize: vertical; min-height: 100px; }
-        .form-status { margin-top: 15px; padding: 12px; border-radius: 4px; display: none; }
-        .form-status.success { display: block; background: rgba(76,175,80,0.2); color: #4caf50; border: 1px solid #4caf50; }
-        .form-status.error { display: block; background: rgba(244,67,54,0.2); color: #f44336; border: 1px solid #f44336; }
-        footer { background: var(--dark-charcoal); padding: 60px 8% 30px; text-align: center; border-top: 3px solid var(--gold); }
-        .social-icons { margin-bottom: 30px; }
-        .social-icons a { color: var(--gold); font-size: 1.5rem; margin: 0 15px; }
-        .footer-note { font-size: 0.8rem; color: #666; margin-top: 40px; }
-        .newsletter-form { max-width: 400px; margin: 20px auto; display: flex; gap: 10px; }
-        .newsletter-form input { flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(197,160,89,0.3); color: var(--white); }
-        .modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000;
-            justify-content: center; align-items: center; padding: 20px;
+
+        /* ============================================================
+           NOTIFICATION BAR
+           ============================================================ */
+        .notification-bar {
+            background: linear-gradient(90deg, var(--purple-deep), rgba(45,27,78,0.8), var(--purple-deep));
+            border-bottom: 1px solid rgba(201,168,76,0.12);
+            padding: 0.65rem 0;
+            text-align: center;
         }
-        .modal.active { display: flex; }
-        .modal-content {
-            background: var(--cream); color: var(--dark-charcoal); padding: 40px; max-width: 600px; width: 100%;
-            max-height: 90vh; overflow-y: auto; position: relative;
+
+        .notification-bar p {
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold-light);
         }
-        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; background: none; border: none; }
-        .modal h3 { margin-bottom: 20px; color: var(--gold); }
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
+
+        .notification-bar span { color: var(--gold-bright); }
+
+        /* ============================================================
+           NAV
+           ============================================================ */
+        #main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 0;
+            transition: var(--transition);
+        }
+
+        #main-nav.scrolled {
+            background: rgba(6,4,10,0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201,168,76,0.14);
+            padding: 0.875rem 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo         { text-decoration: none; }
+        .nav-logo-main    { display: block; font-family: var(--font-display); font-size: 1.55rem; font-weight: 600; color: var(--gold-light); letter-spacing: 0.12em; line-height: 1; }
+        .nav-logo-sub     { display: block; font-size: 0.52rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold-dim); }
+
+        .nav-links        { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+        .nav-links a      { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: var(--transition); position: relative; }
+        .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--gold-primary); transition:var(--transition); }
+        .nav-links a:hover { color: var(--gold-light); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            font-size: 0.62rem !important;
+            font-weight: 700 !important;
+            color: var(--black-deep) !important;
+            background: var(--gradient-gold);
+            padding: 0.65rem 1.5rem;
+            border-radius: 2px;
+        }
+        .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+        .nav-cta::after { display: none !important; }
+
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 1px; background: var(--gold-primary); transition: var(--transition); }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(6,4,10,0.97);
+            backdrop-filter: blur(24px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; color: var(--text-secondary); text-decoration: none; letter-spacing: 0.07em; transition: var(--transition); }
+        .mobile-menu a:hover { color: var(--gold-bright); }
+        .mobile-close { position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: var(--transition); }
+        .mobile-close:hover { color: var(--gold-light); }
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+        #hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-hero);
+        }
+
+        /* Chandelier / warm ceiling glow — XS overhead lighting */
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90vw;
+            height: 75vh;
+            background: radial-gradient(ellipse at center top,
+                rgba(201,168,76,0.20) 0%,
+                rgba(196,122,26,0.12) 25%,
+                rgba(107,63,160,0.08) 55%,
+                transparent 72%
+            );
+            pointer-events: none;
+        }
+
+        /* Floor reflection glow — XS pool floor */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70vw;
+            height: 45vh;
+            background: radial-gradient(ellipse at center bottom,
+                rgba(80,120,200,0.07) 0%,
+                rgba(201,168,76,0.04) 45%,
+                transparent 72%
+            );
+            pointer-events: none;
+        }
+
+        /* Architectural column lines — XS flanking columns */
+        .hero-columns {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .hero-column {
+            position: absolute;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(201,168,76,0.28) 20%,
+                rgba(201,168,76,0.45) 50%,
+                rgba(201,168,76,0.28) 80%,
+                transparent 100%
+            );
+        }
+
+        .hero-column:nth-child(1) { left: 11%; }
+        .hero-column:nth-child(2) { left: 24%; }
+        .hero-column:nth-child(3) { right: 24%; }
+        .hero-column:nth-child(4) { right: 11%; }
+
+        /* Ornamental center ring — XS circular bar analogue */
+        .hero-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: min(72vw, 720px);
+            height: min(72vw, 720px);
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,0.07);
+            pointer-events: none;
+        }
+        .hero-ring::before {
+            content: '';
+            position: absolute;
+            inset: 22px;
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,0.045);
+        }
+        .hero-ring::after {
+            content: '';
+            position: absolute;
+            inset: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,0.025);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 1.5rem;
+            max-width: 920px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .hero-eyebrow-line { width: 38px; height: 1px; background: var(--gold-primary); opacity: 0.65; }
+
+        .hero-title {
+            background: linear-gradient(135deg, #F5E6B3 0%, #C9A84C 38%, #F5D680 68%, #E8CC82 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-display);
+            font-size: clamp(1.15rem, 2.5vw, 2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 0.9rem;
+            letter-spacing: 0.04em;
+        }
+
+        .hero-tagline {
+            font-size: 0.67rem;
+            font-weight: 400;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 3.5rem;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1.25rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10;
+            opacity: 0.45;
+            pointer-events: none;
+        }
+        .scroll-indicator span { font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-dim); }
+        .scroll-mouse { width: 21px; height: 33px; border: 1px solid rgba(201,168,76,0.4); border-radius: 11px; position: relative; }
+        .scroll-mouse::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 6px;
+            background: var(--gold-primary);
+            border-radius: 1px;
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50%       { transform: translateX(-50%) translateY(8px); opacity: 0.2; }
+        }
+
+        /* ============================================================
+           BUTTON SYSTEM
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 0.64rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 2px;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary { background: var(--gradient-gold); color: var(--black-deep); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(201,168,76,0.35); opacity: 0.92; }
+
+        .btn-outline { background: transparent; color: var(--gold-light); border: 1px solid rgba(201,168,76,0.4); }
+        .btn-outline:hover { border-color: var(--gold-primary); color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,0.14); }
+
+        .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid rgba(138,110,42,0.28); padding: 0.875rem 2rem; font-size: 0.6rem; }
+        .btn-ghost:hover { color: var(--gold-light); border-color: rgba(201,168,76,0.45); }
+
+        /* ============================================================
+           STATS BAR
+           ============================================================ */
+        #stats-bar {
+            background: linear-gradient(90deg, var(--black-rich) 0%, rgba(45,27,78,0.35) 50%, var(--black-rich) 100%);
+            border-top: 1px solid rgba(201,168,76,0.1);
+            border-bottom: 1px solid rgba(201,168,76,0.1);
+        }
+
+        .stats-inner {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+        }
+
+        .stat-item {
+            padding: 2.75rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 20%; height: 60%; width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.2), transparent);
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-weight: 300;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-label {
+            font-size: 0.58rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+           SECTION HEADER
+           ============================================================ */
+        .section-header { text-align: center; margin-bottom: clamp(3rem,6vw,5rem); }
+        .section-header .label-track { margin-bottom: 1rem; }
+        .section-header h2 { color: var(--gold-champagne); margin-bottom: 1.25rem; }
+        .section-header p { max-width: 520px; margin: 0 auto; color: var(--text-muted); font-size: 0.88rem; line-height: 1.85; }
+
+        /* ============================================================
+           BRAND PILLARS
+           ============================================================ */
+        #pillars {
+            background: var(--black-rich);
+            position: relative;
+            overflow: hidden;
+        }
+        #pillars::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,0.28), transparent);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5px;
+            background: rgba(201,168,76,0.07);
+        }
+
+        .pillar-card {
+            background: var(--black-card);
+            padding: clamp(2.5rem,5vw,4rem) clamp(2rem,4vw,3rem);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: var(--gradient-gold);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        .pillar-card:hover::before { transform: scaleX(1); }
+        .pillar-card:hover { background: rgba(26,16,37,0.97); }
+
+        .pillar-icon-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.75rem;
+        }
+        .pillar-icon-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(201,168,76,0.14) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .pillar-icon { font-size: 1.8rem; position: relative; z-index: 1; }
+
+        .pillar-card h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; color: var(--gold-champagne); margin-bottom: 0.75rem; letter-spacing: 0.03em; }
+        .pillar-card p  { font-size: 0.84rem; color: var(--text-muted); line-height: 1.88; }
+        .pillar-number  { position: absolute; top: 1.25rem; right: 1.75rem; font-family: var(--font-display); font-size: 5rem; font-weight: 300; color: rgba(201,168,76,0.035); line-height: 1; pointer-events: none; user-select: none; }
+
+        /* ============================================================
+           EVENTS SECTION
+           ============================================================ */
+        #events { background: var(--black-deep); }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .event-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--black-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .event-card:hover {
+            border-color: rgba(201,168,76,0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 22px 60px rgba(0,0,0,0.5), 0 0 45px rgba(201,168,76,0.07);
+        }
+
+        .event-card-header        { position: relative; height: 200px; overflow: hidden; }
+        .event-card-bg            { width: 100%; height: 100%; transition: var(--transition-slow); display: flex; align-items: center; justify-content: center; }
+        .event-card:hover .event-card-bg { transform: scale(1.06); }
+
+        .event-bg-rnb    { background: linear-gradient(135deg, #1A0E28 0%, #2D1B4E 55%, #1A0E28 100%); }
+        .event-bg-hiphop { background: linear-gradient(135deg, #1A1010 0%, #3D1A0A 55%, #1A1010 100%); }
+        .event-bg-soul   { background: linear-gradient(135deg, #150A2A 0%, #2A1050 55%, #150A2A 100%); }
+
+        .event-card-header-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.25rem;
+        }
+
+        .event-genre-tag {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(201,168,76,0.14);
+            border: 1px solid rgba(201,168,76,0.24);
+            color: var(--gold-light);
+            font-size: 0.56rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 0.32rem 0.72rem;
+            border-radius: 2px;
+            backdrop-filter: blur(4px);
+            align-self: flex-start;
+        }
+
+        .event-date-badge {
+            background: rgba(6,4,10,0.75);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 0.75rem;
+            text-align: center;
+            align-self: flex-end;
+        }
+        .event-date-day   { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--gold-bright); line-height: 1; }
+        .event-date-month { font-size: 0.52rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+
+        .event-card-body    { padding: 1.5rem 1.5rem 1.75rem; }
+        .event-card-body h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--gold-champagne); margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+
+        .event-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+        .event-meta-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.68rem; color: var(--text-muted); }
+        .event-meta-item svg { width: 12px; height: 12px; fill: var(--gold-dim); flex-shrink: 0; }
+        .event-desc { font-size: 0.77rem; color: var(--text-muted); line-height: 1.75; }
+
+        .event-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--black-border);
+        }
+        .event-price       { font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; color: var(--gold-primary); }
+        .event-price-label { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+
+        .btn-event {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            background: transparent;
+            border: 1px solid rgba(201,168,76,0.28);
+            padding: 0.6rem 1.2rem;
+            border-radius: 2px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .btn-event:hover { background: rgba(201,168,76,0.09); border-color: var(--gold-primary); color: var(--gold-bright); }
+
+        /* ============================================================
+           AUDIENCE SPLIT — DUAL FUNNEL
+           ============================================================ */
+        #audience-split { background: var(--black-warm); position: relative; overflow: hidden; }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: rgba(201,168,76,0.09);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .split-panel { padding: clamp(3rem,7vw,6rem) clamp(2.5rem,5vw,5rem); position: relative; overflow: hidden; transition: var(--transition); }
+        .split-panel-attendee { background: linear-gradient(145deg, #0D0912 0%, #1A1025 100%); }
+        .split-panel-venue    { background: linear-gradient(145deg, #120C0A 0%, #1E1208 100%); }
+
+        .split-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--gradient-gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition-slow);
+        }
+        .split-panel:hover::before { transform: scaleX(1); }
+
+        .split-panel-tag { display: inline-block; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-primary); margin-bottom: 1.5rem; padding: 0.28rem 0.72rem; border: 1px solid rgba(201,168,76,0.2); }
+        .split-panel h2  { font-family: var(--font-display); font-size: clamp(2rem,4vw,3.5rem); font-weight: 300; color: var(--gold-champagne); line-height: 1.1; margin-bottom: 1.2rem; letter-spacing: 0.03em; }
+        .split-panel p   { font-size: 0.84rem; color: var(--text-muted); line-height: 1.88; margin-bottom: 2.5rem; max-width: 380px; }
+
+        .split-benefits { list-style: none; margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .split-benefits li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.78rem; color: var(--text-secondary); }
+        .split-benefits li::before { content: ''; display: block; width: 16px; height: 1px; background: var(--gold-primary); flex-shrink: 0; }
+
+        .split-bg-number { position: absolute; bottom: -2rem; right: 2rem; font-family: var(--font-display); font-size: 12rem; font-weight: 700; color: rgba(201,168,76,0.022); line-height: 1; pointer-events: none; user-select: none; }
+
+        /* ============================================================
+           RSVP FORM
+           ============================================================ */
+        #rsvp { background: var(--black-rich); position: relative; overflow: hidden; }
+        #rsvp::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            width: 620px; height: 620px;
+            background: radial-gradient(circle, rgba(107,63,160,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .rsvp-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: clamp(3rem,6vw,6rem);
+            align-items: start;
+        }
+
+        .rsvp-left { position: sticky; top: 7rem; }
+        .rsvp-left h2 { font-family: var(--font-display); font-size: clamp(2rem,4vw,3.5rem); font-weight: 300; color: var(--gold-champagne); line-height: 1.1; margin-bottom: 1.2rem; }
+        .rsvp-left p  { font-size: 0.84rem; color: var(--text-muted); line-height: 1.88; margin-bottom: 2.5rem; }
+
+        .rsvp-trust-badges { display: flex; flex-direction: column; gap: 1rem; }
+        .trust-badge { display: flex; align-items: center; gap: 1rem; }
+        .trust-badge-icon { width: 36px; height: 36px; border: 1px solid rgba(201,168,76,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+        .trust-badge span { font-size: 0.74rem; color: var(--text-muted); }
+
+        #guestlist-form {
+            background: var(--gradient-card);
+            border: 1px solid var(--black-border);
+            border-radius: var(--radius-lg);
+            padding: clamp(2rem,5vw,3.5rem);
+            position: relative;
+        }
+        #guestlist-form::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 3rem; right: 3rem; height: 1px;
+            background: var(--gradient-gold);
+            opacity: 0.55;
+        }
+
+        .form-title    { font-family: var(--font-display); font-size: 1.65rem; font-weight: 400; color: var(--gold-champagne); margin-bottom: 0.4rem; }
+        .form-subtitle { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 2rem; letter-spacing: 0.04em; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group.full { grid-column: 1/-1; }
+
+        .form-label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--black-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.84rem;
+            font-weight: 300;
+            padding: 0.875rem 1rem;
+            outline: none;
+            transition: var(--transition);
+            -webkit-appearance: none;
+        }
+        .form-input::placeholder { color: var(--text-muted); }
+        .form-input:focus,
+        .form-select:focus {
+            border-color: rgba(201,168,76,0.4);
+            background: rgba(201,168,76,0.025);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.055);
+        }
+
+        .form-select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%238A6E2A' d='M5 7L0 0h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+        .form-select option { background: var(--black-card); color: var(--text-primary); }
+
+        .form-privacy { font-size: 0.62rem; color: var(--text-muted); line-height: 1.65; margin-top: 1rem; }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--gradient-gold);
+            color: var(--black-deep);
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 2px;
+            padding: 1.1rem 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1.5rem;
+        }
+        .btn-submit:hover { opacity: 0.87; transform: translateY(-1px); box-shadow: 0 12px 40px rgba(201,168,76,0.28); }
+        .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+        .form-success { display: none; text-align: center; padding: 2rem; }
+        .form-success.visible { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+        .success-icon  { font-size: 2.8rem; }
+        .success-title { font-family: var(--font-display); font-size: 2rem; color: var(--gold-champagne); }
+        .success-text  { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* ============================================================
+           PARTNERSHIP
+           ============================================================ */
+        #partnership { background: var(--black-deep); position: relative; overflow: hidden; }
+
+        .partnership-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(3rem,6vw,6rem); align-items: center; }
+
+        .partnership-left h2 { font-family: var(--font-display); font-size: clamp(2rem,4vw,3.5rem); font-weight: 300; color: var(--gold-champagne); line-height: 1.1; margin-bottom: 1.2rem; }
+        .partnership-left p  { font-size: 0.84rem; color: var(--text-muted); line-height: 1.88; margin-bottom: 2rem; }
+
+        .partnership-services { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+        .service-chip {
+            background: rgba(201,168,76,0.045);
+            border: 1px solid rgba(201,168,76,0.11);
+            border-radius: var(--radius-sm);
+            padding: 0.875rem 1rem;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.04em;
+            transition: var(--transition);
+        }
+        .service-chip:hover { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.3); color: var(--gold-light); }
+
+        .partnership-visual {
+            background: var(--gradient-card);
+            border: 1px solid var(--black-border);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .partnership-visual::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient-gold); }
+
+        .pv-logo    { font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+        .pv-tagline { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.75rem; }
+        .pv-divider { width: 40px; height: 1px; background: var(--gradient-gold); margin: 0 auto 2rem; }
+
+        .pv-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        .pv-metric { padding: 1.2rem; background: rgba(255,255,255,0.02); border: 1px solid var(--black-border); border-radius: var(--radius-sm); }
+        .pv-metric-val { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--gold-primary); line-height: 1; margin-bottom: 0.25rem; }
+        .pv-metric-lab { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        #footer { background: var(--black-rich); border-top: 1px solid var(--black-border); padding: clamp(3rem,6vw,5rem) 0 2rem; }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--black-border);
+        }
+
+        .footer-brand h3       { font-family: var(--font-display); font-size: 1.55rem; font-weight: 300; color: var(--gold-light); letter-spacing: 0.1em; margin-bottom: 0.22rem; }
+        .footer-brand-tagline  { display: block; font-size: 0.52rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.2rem; }
+        .footer-brand p        { font-size: 0.79rem; color: var(--text-muted); line-height: 1.8; max-width: 280px; }
+
+        .footer-social { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+        .social-btn {
+            width: 36px; height: 36px;
+            border: 1px solid var(--black-border);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); font-size: 0.72rem; font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .social-btn:hover { border-color: rgba(201,168,76,0.4); color: var(--gold-light); background: rgba(201,168,76,0.07); }
+
+        .footer-col h4      { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-primary); margin-bottom: 1.25rem; }
+        .footer-links       { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .footer-links a     { font-size: 0.79rem; color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+        .footer-links a:hover { color: var(--gold-light); }
+
+        .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .footer-copy   { font-size: 0.68rem; color: var(--text-muted); }
+        .footer-legal  { display: flex; gap: 1.5rem; }
+        .footer-legal a { font-size: 0.68rem; color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+        .footer-legal a:hover { color: var(--gold-light); }
+
+        /* ============================================================
+           SCROLL REVEAL
+           ============================================================ */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
             .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .stats-inner { grid-template-columns: 1fr; }
+            .stat-item:not(:last-child)::after { right: 20%; left: 20%; bottom: 0; top: auto; width: auto; height: 1px; }
+            .split-grid { grid-template-columns: 1fr; }
+            .rsvp-container { grid-template-columns: 1fr; }
+            .rsvp-left { position: static; }
+            .form-grid { grid-template-columns: 1fr; }
+            .partnership-inner { grid-template-columns: 1fr; }
+            .partnership-services { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .hero-columns { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-cta-group { flex-direction: column; align-items: stretch; }
+            .btn { justify-content: center; }
+            .events-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">Classic<span style="color:var(--white)">+</span>Productions</div>
-        <ul class="nav-links">
-            <li><a href="#events">Events</a></li>
-            <li><a href="#reservation">Reservations</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="btn-gold" style="padding: 10px 20px; font-size: 0.8rem;" onclick="document.getElementById('reservation').scrollIntoView({behavior:'smooth'})">Book Table</button>
-    </nav>
-
-    <section class="hero">
-        <div class="hero-location">Washington D.C. &nbsp;|&nbsp; Baltimore</div>
-        <h1>Classic Nights. Modern Beats.</h1>
-        <p>The DMV's Premier Hip-Hop & R&B Experience</p>
-        <a href="#events" class="btn-gold">Explore the Calendar</a>
-    </section>
-
-    <section class="section" id="events">
-        <div class="section-header">
-            <div class="section-title">
-                <h2>Events</h2>
-            </div>
-            <p style="font-style: italic;">D.C. &amp; Baltimore's finest nightlife, curated for you.</p>
-        </div>
-        <div class="event-grid" id="event-grid">
-            <p>Loading events&hellip;</p>
-        </div>
-    </section>
-
-    <section class="section section-dark" id="reservation">
-        <div class="section-header">
-            <div class="section-title"><h2>Reserve a Table</h2></div>
-            <p style="font-style: italic; color: var(--gold);">VIP and standard seating available.</p>
-        </div>
-        <form class="form-grid" id="reservation-form">
-            <div>
-                <label>Full Name</label>
-                <input type="text" name="full_name" required maxlength="150">
-            </div>
-            <div>
-                <label>Email</label>
-                <input type="email" name="email" required maxlength="200">
-            </div>
-            <div>
-                <label>Phone</label>
-                <input type="tel" name="phone" maxlength="30">
-            </div>
-            <div>
-                <label>Party Size</label>
-                <input type="number" name="party_size" min="1" max="20" value="2" required>
-            </div>
-            <div>
-                <label>Date</label>
-                <input type="date" name="reservation_date" required>
-            </div>
-            <div>
-                <label>Time</label>
-                <input type="time" name="reservation_time" required>
-            </div>
-            <div class="full">
-                <label>Table Type</label>
-                <select name="table_type">
-                    <option value="standard">Standard</option>
-                    <option value="premium">Premium</option>
-                    <option value="vip">VIP Booth</option>
-                </select>
-            </div>
-            <div class="full">
-                <label>Special Requests</label>
-                <textarea name="special_requests" maxlength="1000"></textarea>
-            </div>
-            <div class="full">
-                <button type="submit" class="btn-gold">Submit Reservation</button>
-                <div id="reservation-status" class="form-status"></div>
-            </div>
-        </form>
-    </section>
-
-    <section class="section" id="contact">
-        <div class="section-header">
-            <div class="section-title"><h2>Contact</h2></div>
-            <p style="font-style: italic;">Inquiries, bookings, and press.</p>
-        </div>
-        <form class="form-grid" id="contact-form">
-            <div>
-                <label>Name</label>
-                <input type="text" name="name" required maxlength="150">
-            </div>
-            <div>
-                <label>Email</label>
-                <input type="email" name="email" required maxlength="200">
-            </div>
-            <div>
-                <label>Phone</label>
-                <input type="tel" name="phone" maxlength="30">
-            </div>
-            <div>
-                <label>Social Media</label>
-                <input type="text" name="social_handles" placeholder="@instagram, @x, Facebook" maxlength="250">
-            </div>
-            <div class="full">
-                <label>Subject</label>
-                <input type="text" name="subject" maxlength="200">
-            </div>
-            <div class="full">
-                <label>Message</label>
-                <textarea name="message" required maxlength="2000"></textarea>
-            </div>
-            <div class="full">
-                <button type="submit" class="btn-gold">Send Message</button>
-                <div id="contact-status" class="form-status"></div>
-            </div>
-        </form>
-    </section>
-
-    <!-- Booking Modal -->
-    <div class="modal" id="booking-modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <h3 id="modal-event-title">Book Tickets</h3>
-            <p id="modal-event-desc" style="margin-bottom: 20px; font-style: italic;"></p>
-            <form class="form-grid" id="booking-form">
-                <input type="hidden" name="event_id" id="modal-event-id">
-                <div class="full"><label>Full Name</label><input type="text" name="full_name" required maxlength="150"></div>
-                <div><label>Email</label><input type="email" name="email" required maxlength="200"></div>
-                <div><label>Phone</label><input type="tel" name="phone" maxlength="30"></div>
-                <div><label>Quantity</label><input type="number" name="quantity" min="1" max="20" value="1" required></div>
-                <div><label>Total</label><input type="text" id="modal-total" readonly value="$0.00"></div>
-                <div class="full"><button type="submit" class="btn-gold">Confirm Booking</button>
-                    <div id="booking-status" class="form-status"></div>
-                </div>
-            </form>
-        </div>
+    <!-- NOTIFICATION BAR -->
+    <div class="notification-bar" role="banner">
+        <p>Next activation: <span>June 14, 2025 — Decades of Desire Vol. 3</span> &nbsp;·&nbsp; Guestlist closes 48 hrs prior</p>
     </div>
 
-    <footer>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-spotify"></i></a>
+    <!-- ============================================================
+         NAVIGATION
+         ============================================================ -->
+    <nav id="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav-inner">
+            <a href="#hero" class="nav-logo" aria-label="Classic Productions home">
+                <span class="nav-logo-main">Classic Productions</span>
+                <span class="nav-logo-sub">DMV's Premier Event Experience</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#events">Events</a></li>
+                <li><a href="#pillars">The Experience</a></li>
+                <li><a href="#rsvp">Guestlist</a></li>
+                <li><a href="#partnership">Partnerships</a></li>
+                <li><a href="#rsvp" class="nav-cta">Reserve Now</a></li>
+            </ul>
+            <button class="hamburger" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
-        <p style="color: var(--cream)">Join the Inner Circle for exclusive invites.</p>
-        <form class="newsletter-form" id="newsletter-form">
-            <input type="email" name="email" placeholder="your@email.com" required maxlength="200">
-            <button type="submit" class="btn-gold" style="padding: 12px 20px;">Subscribe</button>
-        </form>
-        <div id="newsletter-status" class="form-status" style="max-width:400px;margin:10px auto;"></div>
-        <p class="footer-note">&copy; 2026 CLASSIC PRODUCTIONS. WASHINGTON D.C. | BALTIMORE. ALL RIGHTS RESERVED.</p>
-    </footer>
+    </nav>
 
-    <script>
-        function escapeHtml(str) {
-            if (str == null) return '';
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
-        }
+    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+        <button class="mobile-close" id="menu-close" aria-label="Close menu">&#x2715;</button>
+        <a href="#events"      class="mobile-link">Events</a>
+        <a href="#pillars"     class="mobile-link">The Experience</a>
+        <a href="#rsvp"        class="mobile-link">Guestlist</a>
+        <a href="#partnership" class="mobile-link">Partnerships</a>
+        <a href="#rsvp" class="btn btn-primary mobile-link">Reserve Now</a>
+    </div>
 
-        function safeCssUrl(url) {
-            if (!url) return '';
-            return String(url).replace(/['"\\()]/g, '');
-        }
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section id="hero" aria-label="Classic Productions hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-columns" aria-hidden="true">
+            <div class="hero-column"></div>
+            <div class="hero-column"></div>
+            <div class="hero-column"></div>
+            <div class="hero-column"></div>
+        </div>
+        <div class="hero-ring" aria-hidden="true"></div>
 
-        // Load events from API
-        let eventsCache = [];
-        async function loadEvents() {
-            try {
-                const res = await fetch('/api/events');
-                if (!res.ok) throw new Error('Server error');
-                const events = await res.json();
-                eventsCache = events;
-                const grid = document.getElementById('event-grid');
-                if (!events.length) {
-                    grid.innerHTML = '<p>No upcoming events. Check back soon.</p>';
-                    return;
-                }
-                grid.innerHTML = events.map(e => {
-                    const date = new Date(e.event_date + 'T00:00:00');
-                    const month = date.toLocaleString('en', {month:'short'}).toUpperCase();
-                    const day = date.getDate().toString().padStart(2,'0');
-                    return `
-                        <div class="event-card">
-                            <div class="event-img" style="background-image: url('${safeCssUrl(e.image_url)}')">
-                                <div class="date-badge">${month}<br>${day}</div>
-                            </div>
-                            <div class="event-info">
-                                <span class="genre">${escapeHtml(e.genre)}</span>
-                                <h3>${escapeHtml(e.title)}</h3>
-                                <p>${escapeHtml(e.description)}</p>
-                                <p class="price">$${Number(e.ticket_price).toFixed(2)} &bull; ${escapeHtml(e.venue)}</p>
-                                <button class="btn-gold" onclick="openBooking(${Number(e.id)})">Book Tickets</button>
+        <div class="hero-content">
+            <div class="hero-eyebrow" aria-hidden="true">
+                <span class="hero-eyebrow-line"></span>
+                <span class="label-track">Est. 2014 &mdash; Washington, DC</span>
+                <span class="hero-eyebrow-line"></span>
+            </div>
+
+            <h1 class="display-hero hero-title">Classic<br>Productions</h1>
+            <p class="hero-subtitle">Where the Culture Comes to Life</p>
+            <p class="hero-tagline">Curated Nightlife Experiences for the Discerning Few</p>
+
+            <div class="hero-cta-group">
+                <a href="#rsvp"
+                   class="btn btn-primary"
+                   id="hero-cta-attendee"
+                   data-cta-type="attendee"
+                   aria-label="Join the guestlist as an attendee">
+                    I&rsquo;m an Attendee &mdash; Get on the List
+                </a>
+                <a href="#partnership"
+                   class="btn btn-outline"
+                   id="hero-cta-venue"
+                   data-cta-type="venue-brand"
+                   aria-label="Venue and brand partnership inquiries">
+                    I&rsquo;m a Venue or Brand &mdash; Let&rsquo;s Talk
+                </a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator" aria-hidden="true">
+            <div class="scroll-mouse"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         STATS BAR
+         ============================================================ -->
+    <section id="stats-bar" aria-label="Classic Productions milestones">
+        <div class="container">
+            <div class="stats-inner">
+                <div class="stat-item reveal" data-stat="years">
+                    <div class="stat-number" id="stat-years">10+</div>
+                    <div class="stat-label">Years of Excellence</div>
+                </div>
+                <div class="stat-item reveal reveal-delay-1" data-stat="events">
+                    <div class="stat-number" id="stat-events">500+</div>
+                    <div class="stat-label">Events Curated</div>
+                </div>
+                <div class="stat-item reveal reveal-delay-2" data-stat="guests">
+                    <div class="stat-number" id="stat-guests">50K+</div>
+                    <div class="stat-label">Guests Hosted</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         BRAND PILLARS
+         ============================================================ -->
+    <section id="pillars" class="section-pad" aria-labelledby="pillars-heading">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label-track">Our Philosophy</span>
+                <span class="gold-line" aria-hidden="true"></span>
+                <h2 id="pillars-heading" class="display-lg">The Classic Standard</h2>
+                <p>Three uncompromising principles define every experience we create &mdash; from conception to the final song of the night.</p>
+            </div>
+
+            <div class="pillars-grid">
+                <article class="pillar-card reveal" data-pillar="curated-energy">
+                    <span class="pillar-number" aria-hidden="true">01</span>
+                    <div class="pillar-icon-wrap">
+                        <span class="pillar-icon" role="img" aria-label="Music">&#127925;</span>
+                    </div>
+                    <h3>Curated Energy</h3>
+                    <p>Every playlist is an intentional journey. We blend eras, genres, and frequencies to create a sonic atmosphere that resonates deeply &mdash; from 90s R&amp;B classics to soul-trap fusion. Crowd composition is curated with the same precision as the music.</p>
+                    <span class="gold-line-left" aria-hidden="true"></span>
+                </article>
+
+                <article class="pillar-card reveal reveal-delay-1" data-pillar="consistent-quality">
+                    <span class="pillar-number" aria-hidden="true">02</span>
+                    <div class="pillar-icon-wrap">
+                        <span class="pillar-icon" role="img" aria-label="Quality">&#128142;</span>
+                    </div>
+                    <h3>Consistent Quality</h3>
+                    <p>Excellence is not an accident &mdash; it&rsquo;s a system. From venue selection and lighting design to talent booking and guest services, every detail is obsessed over. Our attendees return because they know exactly what level of experience awaits.</p>
+                    <span class="gold-line-left" aria-hidden="true"></span>
+                </article>
+
+                <article class="pillar-card reveal reveal-delay-2" data-pillar="cultural-connection">
+                    <span class="pillar-number" aria-hidden="true">03</span>
+                    <div class="pillar-icon-wrap">
+                        <span class="pillar-icon" role="img" aria-label="Culture">&#127760;</span>
+                    </div>
+                    <h3>Cultural Connection</h3>
+                    <p>We don&rsquo;t just throw parties &mdash; we create cultural moments. Our events are a celebration of Black excellence, collective nostalgia, and present-day artistry. Every activation is rooted in authentic community and shared history.</p>
+                    <span class="gold-line-left" aria-hidden="true"></span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         EVENTS GRID
+         ============================================================ -->
+    <section id="events" class="section-pad" aria-labelledby="events-heading">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label-track">DMV Activations</span>
+                <span class="gold-line" aria-hidden="true"></span>
+                <h2 id="events-heading" class="display-lg">Upcoming Events</h2>
+                <p>Reserve your access to the most anticipated nights in the DMV. Limited capacity &mdash; curated environments, intentional company.</p>
+            </div>
+
+            <!--
+                CRM HOOK: event cards are dynamically injectable.
+                Backend agents call ClassicCRM.addEvent(data) or dispatch
+                the custom DOM event: crm:inject-event with { detail: { eventData } }
+            -->
+            <div class="events-grid"
+                 id="events-grid"
+                 role="list"
+                 aria-label="Upcoming events"
+                 data-crm-component="events-grid">
+
+                <!-- Event Card 1 -->
+                <article class="event-card reveal"
+                    role="listitem"
+                    data-event-id="EVT-2025-001"
+                    data-genre="90s-rnb"
+                    data-date="2025-06-14"
+                    data-venue="Washington DC"
+                    data-capacity="350"
+                    data-status="active">
+                    <div class="event-card-header">
+                        <div class="event-bg-rnb event-card-bg">
+                            <span style="font-size:3.5rem;opacity:.22;font-family:var(--font-display)">&#9834;</span>
+                        </div>
+                        <div class="event-card-header-content">
+                            <span class="event-genre-tag">90s R&amp;B Classics</span>
+                            <div class="event-date-badge">
+                                <div class="event-date-day">14</div>
+                                <div class="event-date-month">Jun</div>
                             </div>
                         </div>
-                    `;
-                }).join('');
-            } catch (err) {
-                document.getElementById('event-grid').innerHTML = '<p>Could not load events. Please try again later.</p>';
-            }
-        }
-        loadEvents();
+                    </div>
+                    <div class="event-card-body">
+                        <h3>Decades of Desire Vol. 3</h3>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                <span>Washington, DC</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C8.68 1 6 3.68 6 7v1H4v15h16V8h-2V7c0-3.32-2.68-6-6-6zm0 2c2.28 0 4 1.72 4 4v1H8V7c0-2.28 1.72-4 4-4z"/></svg>
+                                <span>18+ Event</span>
+                            </div>
+                        </div>
+                        <p class="event-desc">A journey through the golden era &mdash; slow jams, new jack swing, and everything that made the decade legendary.</p>
+                        <div class="event-card-footer">
+                            <div>
+                                <div class="event-price">$25</div>
+                                <div class="event-price-label">General Admission</div>
+                            </div>
+                            <a href="#rsvp" class="btn-event"
+                               data-action="rsvp-event"
+                               data-event-ref="EVT-2025-001"
+                               aria-label="RSVP for Decades of Desire Vol. 3">RSVP Now</a>
+                        </div>
+                    </div>
+                </article>
 
-        // Booking modal
-        function openBooking(eventId) {
-            const ev = eventsCache.find(e => e.id === eventId);
-            if (!ev) return;
-            document.getElementById('modal-event-id').value = ev.id;
-            document.getElementById('modal-event-title').textContent = 'Book: ' + ev.title;
-            document.getElementById('modal-event-desc').textContent = ev.event_date + ' • $' + Number(ev.ticket_price).toFixed(2) + ' per ticket';
-            document.getElementById('modal-total').value = '$' + Number(ev.ticket_price).toFixed(2);
-            document.getElementById('booking-modal').classList.add('active');
-            document.querySelector('#booking-form [name=quantity]').oninput = (e) => {
-                const qty = Math.max(1, Math.min(20, parseInt(e.target.value) || 1));
-                document.getElementById('modal-total').value = '$' + (qty * ev.ticket_price).toFixed(2);
-            };
-        }
-        function closeModal() { document.getElementById('booking-modal').classList.remove('active'); }
+                <!-- Event Card 2 -->
+                <article class="event-card reveal reveal-delay-1"
+                    role="listitem"
+                    data-event-id="EVT-2025-002"
+                    data-genre="modern-hiphop"
+                    data-date="2025-07-04"
+                    data-venue="Washington DC"
+                    data-capacity="500"
+                    data-status="active">
+                    <div class="event-card-header">
+                        <div class="event-bg-hiphop event-card-bg">
+                            <span style="font-size:3.5rem;opacity:.22;font-family:var(--font-display)">&#9835;</span>
+                        </div>
+                        <div class="event-card-header-content">
+                            <span class="event-genre-tag">Modern Hip-Hop</span>
+                            <div class="event-date-badge">
+                                <div class="event-date-day">04</div>
+                                <div class="event-date-month">Jul</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-card-body">
+                        <h3>Independence Frequency</h3>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                <span>Washington, DC</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C8.68 1 6 3.68 6 7v1H4v15h16V8h-2V7c0-3.32-2.68-6-6-6zm0 2c2.28 0 4 1.72 4 4v1H8V7c0-2.28 1.72-4 4-4z"/></svg>
+                                <span>21+ Event</span>
+                            </div>
+                        </div>
+                        <p class="event-desc">Celebrate the 4th with the current wave. High-frequency sets, premium open bar packages, and an exclusive rooftop experience.</p>
+                        <div class="event-card-footer">
+                            <div>
+                                <div class="event-price">$40</div>
+                                <div class="event-price-label">General &middot; VIP Available</div>
+                            </div>
+                            <a href="#rsvp" class="btn-event"
+                               data-action="rsvp-event"
+                               data-event-ref="EVT-2025-002"
+                               aria-label="RSVP for Independence Frequency">RSVP Now</a>
+                        </div>
+                    </div>
+                </article>
 
-        // Generic form submitter
-        async function submitForm(formId, url, statusId) {
-            const form = document.getElementById(formId);
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const status = document.getElementById(statusId);
-                status.className = 'form-status';
-                const data = Object.fromEntries(new FormData(form));
-                try {
-                    const res = await fetch(url, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(data)
-                    });
-                    const result = await res.json();
-                    if (res.ok && result.success) {
-                        status.className = 'form-status success';
-                        status.textContent = '✓ Success! We\'ll be in touch shortly.';
-                        form.reset();
-                    } else {
-                        status.className = 'form-status error';
-                        status.textContent = result.error || 'Something went wrong. Please try again.';
-                    }
-                } catch (err) {
-                    status.className = 'form-status error';
-                    status.textContent = 'Network error. Please check your connection and try again.';
+                <!-- Event Card 3 -->
+                <article class="event-card reveal reveal-delay-2"
+                    role="listitem"
+                    data-event-id="EVT-2025-003"
+                    data-genre="soul-trap-fusion"
+                    data-date="2025-07-26"
+                    data-venue="Maryland"
+                    data-capacity="300"
+                    data-status="active">
+                    <div class="event-card-header">
+                        <div class="event-bg-soul event-card-bg">
+                            <span style="font-size:3.5rem;opacity:.22;font-family:var(--font-display)">&#9833;</span>
+                        </div>
+                        <div class="event-card-header-content">
+                            <span class="event-genre-tag">Soul &amp; Trap Fusion</span>
+                            <div class="event-date-badge">
+                                <div class="event-date-day">26</div>
+                                <div class="event-date-month">Jul</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-card-body">
+                        <h3>Velvet Soul Sessions</h3>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                <span>Maryland</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C8.68 1 6 3.68 6 7v1H4v15h16V8h-2V7c0-3.32-2.68-6-6-6zm0 2c2.28 0 4 1.72 4 4v1H8V7c0-2.28 1.72-4 4-4z"/></svg>
+                                <span>21+ Event</span>
+                            </div>
+                        </div>
+                        <p class="event-desc">Where classic soul architecture meets contemporary trap production. An intimate, elevated experience for true music lovers.</p>
+                        <div class="event-card-footer">
+                            <div>
+                                <div class="event-price">$30</div>
+                                <div class="event-price-label">Early Access</div>
+                            </div>
+                            <a href="#rsvp" class="btn-event"
+                               data-action="rsvp-event"
+                               data-event-ref="EVT-2025-003"
+                               aria-label="RSVP for Velvet Soul Sessions">RSVP Now</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="text-center" style="margin-top:3rem;">
+                <a href="#rsvp" class="btn btn-ghost">View All Events &amp; Join the Inner Circle</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         DUAL FUNNEL — AUDIENCE SPLIT
+         ============================================================ -->
+    <section id="audience-split" class="section-pad" aria-labelledby="audience-heading">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 id="audience-heading" class="display-lg" style="color:var(--gold-champagne)">Who Are You?</h2>
+                <span class="gold-line" aria-hidden="true"></span>
+                <p>Classic Productions serves two worlds with equal intention. Choose your path.</p>
+            </div>
+
+            <div class="split-grid reveal">
+                <div class="split-panel split-panel-attendee"
+                     id="panel-attendee"
+                     data-audience="attendee">
+                    <span class="split-panel-tag">For Guests</span>
+                    <h2>I&rsquo;m Here<br>to Experience</h2>
+                    <p>You know good music. You know the difference between a party and a real moment. Classic Productions was built for you. Our guestlist is selective &mdash; that&rsquo;s the point.</p>
+                    <ul class="split-benefits">
+                        <li>Priority access to sold-out events</li>
+                        <li>Complimentary guestlist consideration</li>
+                        <li>First access to new event announcements</li>
+                        <li>Genre preferences saved to your profile</li>
+                    </ul>
+                    <a href="#rsvp" class="btn btn-primary" data-cta-type="attendee-split">Join the Guestlist</a>
+                    <span class="split-bg-number" aria-hidden="true">01</span>
+                </div>
+
+                <div class="split-panel split-panel-venue"
+                     id="panel-venue"
+                     data-audience="venue-brand">
+                    <span class="split-panel-tag">For Venues &amp; Brands</span>
+                    <h2>I&rsquo;m Here<br>to Partner</h2>
+                    <p>You need a trusted activation partner who brings a qualified, high-spending, culturally-connected audience. We&rsquo;ve done this 500+ times. Your brand is safe with us.</p>
+                    <ul class="split-benefits">
+                        <li>Turnkey event production &amp; talent booking</li>
+                        <li>Brand integration &amp; sponsorship packages</li>
+                        <li>Recurring revenue residency models</li>
+                        <li>Full marketing &amp; promotional support</li>
+                    </ul>
+                    <a href="#partnership" class="btn btn-outline" data-cta-type="venue-split">Explore Partnerships</a>
+                    <span class="split-bg-number" aria-hidden="true">02</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         RSVP / GUESTLIST INTAKE
+         ============================================================ -->
+    <section id="rsvp" class="section-pad" aria-labelledby="rsvp-heading">
+        <div class="container">
+            <div class="rsvp-container">
+
+                <!-- Left: pitch and trust signals -->
+                <div class="rsvp-left">
+                    <span class="label-track reveal">Guestlist Access</span>
+                    <span class="gold-line-left reveal" aria-hidden="true"></span>
+                    <h2 class="reveal" id="rsvp-heading">Secure Your<br>Place Tonight</h2>
+                    <p class="reveal">The guestlist isn&rsquo;t just a list &mdash; it&rsquo;s your access pass to the most thoughtfully curated nights in the DMV. Fill in your details and our team reviews every submission personally.</p>
+                    <div class="rsvp-trust-badges reveal">
+                        <div class="trust-badge">
+                            <div class="trust-badge-icon" aria-hidden="true">&#128274;</div>
+                            <span>Your information is private and never sold</span>
+                        </div>
+                        <div class="trust-badge">
+                            <div class="trust-badge-icon" aria-hidden="true">&#9993;&#65039;</div>
+                            <span>Personal confirmation within 24 hours</span>
+                        </div>
+                        <div class="trust-badge">
+                            <div class="trust-badge-icon" aria-hidden="true">&#127925;</div>
+                            <span>Genre preferences tailor your recommendations</span>
+                        </div>
+                        <div class="trust-badge">
+                            <div class="trust-badge-icon" aria-hidden="true">&#11088;</div>
+                            <span>Priority access to exclusive pre-sale events</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: form -->
+                <div>
+                    <form id="guestlist-form"
+                          data-crm-form="guestlist-intake"
+                          data-form-version="2.0"
+                          novalidate
+                          aria-label="Guestlist intake form">
+
+                        <h3 class="form-title">Guestlist Application</h3>
+                        <p class="form-subtitle">Join 50,000+ guests who&rsquo;ve experienced the Classic standard</p>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="field-first-name">First Name *</label>
+                                <input type="text"
+                                       id="field-first-name"
+                                       name="first_name"
+                                       class="form-input"
+                                       placeholder="First name"
+                                       required
+                                       autocomplete="given-name"
+                                       data-crm-field="first_name"
+                                       aria-required="true" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="field-last-name">Last Name *</label>
+                                <input type="text"
+                                       id="field-last-name"
+                                       name="last_name"
+                                       class="form-input"
+                                       placeholder="Last name"
+                                       required
+                                       autocomplete="family-name"
+                                       data-crm-field="last_name"
+                                       aria-required="true" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="field-email">Email Address *</label>
+                                <input type="email"
+                                       id="field-email"
+                                       name="email"
+                                       class="form-input"
+                                       placeholder="your@email.com"
+                                       required
+                                       autocomplete="email"
+                                       data-crm-field="email"
+                                       aria-required="true" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="field-phone">Phone Number *</label>
+                                <input type="tel"
+                                       id="field-phone"
+                                       name="phone"
+                                       class="form-input"
+                                       placeholder="(202) 555-0000"
+                                       required
+                                       autocomplete="tel"
+                                       data-crm-field="phone"
+                                       aria-required="true" />
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label" for="field-genre">Music Preference *</label>
+                                <select id="field-genre"
+                                        name="genre_preference"
+                                        class="form-select"
+                                        required
+                                        data-crm-field="genre_preference"
+                                        aria-required="true">
+                                    <option value="" disabled selected>Select your vibe&hellip;</option>
+                                    <option value="90s-rnb">90s R&amp;B Classics</option>
+                                    <option value="modern-hiphop">Modern Hip-Hop</option>
+                                    <option value="soul-trap-fusion">Soul &amp; Trap Fusion</option>
+                                    <option value="afrobeats">Afrobeats &amp; Afro-Fusion</option>
+                                    <option value="neo-soul">Neo-Soul &amp; Alternative R&amp;B</option>
+                                    <option value="all-vibes">All Vibes &mdash; Surprise Me</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label" for="field-event">Interested Event (Optional)</label>
+                                <select id="field-event"
+                                        name="event_interest"
+                                        class="form-select"
+                                        data-crm-field="event_interest">
+                                    <option value="">No specific event &mdash; keep me informed</option>
+                                    <option value="EVT-2025-001">Jun 14 &mdash; Decades of Desire Vol. 3</option>
+                                    <option value="EVT-2025-002">Jul 4 &mdash; Independence Frequency</option>
+                                    <option value="EVT-2025-003">Jul 26 &mdash; Velvet Soul Sessions</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <p class="form-privacy">By submitting you agree to receive event communications from Classic Productions. We respect your privacy and never spam. Unsubscribe anytime.</p>
+
+                        <button type="submit" class="btn-submit" id="form-submit-btn">
+                            Request Guestlist Access
+                        </button>
+
+                        <!-- CRM hidden fields — parsed by AI retention and booking agents -->
+                        <input type="hidden" name="source"         value="landing_page"  data-crm-field="lead_source" />
+                        <input type="hidden" name="audience_type"  value="attendee"       data-crm-field="audience_type"  id="hidden-audience-type" />
+                        <input type="hidden" name="referral_event" value=""               data-crm-field="referral_event" id="hidden-referral-event" />
+                        <input type="hidden" name="page_version"   value="2.0"            data-crm-field="page_version" />
+                    </form>
+
+                    <div class="form-success" id="form-success" role="alert" aria-live="polite">
+                        <div class="success-icon" aria-hidden="true">&#10024;</div>
+                        <p class="success-title">You&rsquo;re on the List</p>
+                        <p class="success-text">We&rsquo;ve received your application. Expect a personal confirmation within 24 hours. See you on the floor.</p>
+                        <a href="#events" class="btn btn-ghost" style="margin-top:1rem;">Browse Upcoming Events</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PARTNERSHIP SECTION
+         ============================================================ -->
+    <section id="partnership" class="section-pad" aria-labelledby="partnership-heading">
+        <div class="container">
+            <div class="partnership-inner">
+                <div class="partnership-left reveal">
+                    <span class="label-track">Venues &amp; Brands</span>
+                    <span class="gold-line-left" aria-hidden="true"></span>
+                    <h2 id="partnership-heading">Let&rsquo;s Build<br>Something Legendary</h2>
+                    <p>Classic Productions is the DMV&rsquo;s most trusted cultural activation partner. We don&rsquo;t just fill rooms &mdash; we bring the right rooms. Whether you&rsquo;re a venue looking for a consistent revenue-driving night or a brand seeking authentic cultural access, we are the bridge.</p>
+                    <div class="partnership-services">
+                        <div class="service-chip">Private Event Production</div>
+                        <div class="service-chip">Brand Activation Nights</div>
+                        <div class="service-chip">DJ &amp; Talent Booking</div>
+                        <div class="service-chip">Venue Residency Programs</div>
+                        <div class="service-chip">Sponsorship Integration</div>
+                        <div class="service-chip">Guestlist Management</div>
+                    </div>
+                    <a href="mailto:partnerships@classicproductions.com"
+                       class="btn btn-primary"
+                       id="partnership-cta"
+                       data-cta-type="partnership"
+                       aria-label="Email Classic Productions about a partnership">
+                        Start the Conversation
+                    </a>
+                </div>
+
+                <div class="partnership-right reveal reveal-delay-2">
+                    <div class="partnership-visual">
+                        <div class="pv-logo">Classic</div>
+                        <div class="pv-tagline">Productions &mdash; DC &middot; MD &middot; VA</div>
+                        <div class="pv-divider"></div>
+                        <div class="pv-metrics">
+                            <div class="pv-metric">
+                                <div class="pv-metric-val">500+</div>
+                                <div class="pv-metric-lab">Events Produced</div>
+                            </div>
+                            <div class="pv-metric">
+                                <div class="pv-metric-val">50K+</div>
+                                <div class="pv-metric-lab">Community Members</div>
+                            </div>
+                            <div class="pv-metric">
+                                <div class="pv-metric-val">10+</div>
+                                <div class="pv-metric-lab">Years Active</div>
+                            </div>
+                            <div class="pv-metric">
+                                <div class="pv-metric-val">DMV</div>
+                                <div class="pv-metric-lab">Market Reach</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer id="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>Classic Productions</h3>
+                    <span class="footer-brand-tagline">Washington, DC &middot; Maryland &middot; Virginia</span>
+                    <p>A decade of curated nightlife excellence. We don&rsquo;t make events &mdash; we craft moments that echo through culture.</p>
+                    <div class="footer-social" aria-label="Social media">
+                        <a href="#" class="social-btn" aria-label="Instagram">IG</a>
+                        <a href="#" class="social-btn" aria-label="Twitter / X">X</a>
+                        <a href="#" class="social-btn" aria-label="Facebook">FB</a>
+                        <a href="#" class="social-btn" aria-label="YouTube">YT</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Events</h4>
+                    <ul class="footer-links">
+                        <li><a href="#events">Upcoming Events</a></li>
+                        <li><a href="#rsvp">Join the Guestlist</a></li>
+                        <li><a href="#rsvp">VIP Tables</a></li>
+                        <li><a href="#rsvp">Private Parties</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Partners</h4>
+                    <ul class="footer-links">
+                        <li><a href="#partnership">Venue Partnerships</a></li>
+                        <li><a href="#partnership">Brand Activations</a></li>
+                        <li><a href="#partnership">Talent Booking</a></li>
+                        <li><a href="#partnership">Sponsorships</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@classicproductions.com">info@classicproductions.com</a></li>
+                        <li><a href="mailto:partnerships@classicproductions.com">partnerships@classicproductions.com</a></li>
+                        <li><a href="https://www.myclassicevent.com" target="_blank" rel="noopener noreferrer">myclassicevent.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2025 Classic Productions LLC. All rights reserved.</p>
+                <nav class="footer-legal" aria-label="Legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         JAVASCRIPT — CRM-READY INTERACTIONS
+         ============================================================ -->
+    <script>
+    'use strict';
+
+    /* ─── NAV: scroll state + mobile menu ─────────────────────────── */
+    (function initNav() {
+        const nav      = document.getElementById('main-nav');
+        const toggle   = document.getElementById('menu-toggle');
+        const menu     = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('menu-close');
+
+        window.addEventListener('scroll', function() {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        function openMenu() {
+            menu.classList.add('open');
+            toggle.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            menu.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        toggle.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        document.querySelectorAll('.mobile-link').forEach(function(l) {
+            l.addEventListener('click', closeMenu);
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeMenu();
+        });
+    })();
+
+    /* ─── SCROLL REVEAL ───────────────────────────────────────────── */
+    (function initReveal() {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target);
                 }
             });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+    })();
+
+    /* ─── STAT COUNTER ANIMATION ──────────────────────────────────── */
+    (function initCounters() {
+        var bar = document.getElementById('stats-bar');
+        if (!bar) return;
+
+        var fired = false;
+        var io = new IntersectionObserver(function(entries) {
+            if (!entries[0].isIntersecting || fired) return;
+            fired = true;
+            io.disconnect();
+            animate('stat-years',  0, 10,   1500, '+');
+            animate('stat-events', 0, 500,  2000, '+');
+            animate('stat-guests', 0, 50,   2200, 'K+');
+        }, { threshold: 0.5 });
+
+        io.observe(bar);
+
+        function animate(id, start, end, duration, suffix) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            var t0 = performance.now();
+            (function tick(now) {
+                var p = Math.min((now - t0) / duration, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(start + (end - start) * eased) + suffix;
+                if (p < 1) requestAnimationFrame(tick);
+            })(t0);
         }
-        submitForm('reservation-form', '/api/reservations', 'reservation-status');
-        submitForm('contact-form', '/api/contact', 'contact-status');
-        submitForm('booking-form', '/api/bookings', 'booking-status');
-        submitForm('newsletter-form', '/api/subscribe', 'newsletter-status');
+    })();
+
+    /* ─── CRM: event card click pre-fills RSVP dropdown ──────────── */
+    (function initEventRSVP() {
+        var grid          = document.getElementById('events-grid');
+        var eventSelect   = document.getElementById('field-event');
+        var referralInput = document.getElementById('hidden-referral-event');
+        if (!grid) return;
+
+        grid.addEventListener('click', function(e) {
+            var btn = e.target.closest('[data-action="rsvp-event"]');
+            if (!btn) return;
+            var ref = btn.dataset.eventRef;
+            if (ref) {
+                if (eventSelect)   eventSelect.value   = ref;
+                if (referralInput) referralInput.value = ref;
+            }
+            document.dispatchEvent(new CustomEvent('crm:rsvp-intent', {
+                detail: { eventId: ref, timestamp: Date.now() }
+            }));
+        });
+    })();
+
+    /* ─── CRM: audience funnel tracking ───────────────────────────── */
+    (function initAudienceTracking() {
+        var audienceInput = document.getElementById('hidden-audience-type');
+        document.querySelectorAll('[data-cta-type]').forEach(function(el) {
+            el.addEventListener('click', function() {
+                var type = this.dataset.ctaType;
+                if (audienceInput) audienceInput.value = type;
+                document.dispatchEvent(new CustomEvent('crm:funnel-entry', {
+                    detail: { audienceType: type, elementId: this.id, timestamp: Date.now() }
+                }));
+            });
+        });
+    })();
+
+    /* ─── GUESTLIST FORM: validation + submission ─────────────────── */
+    (function initForm() {
+        var form      = document.getElementById('guestlist-form');
+        var successEl = document.getElementById('form-success');
+        var submitBtn = document.getElementById('form-submit-btn');
+        if (!form) return;
+
+        function showError(field, msg) {
+            field.style.borderColor = 'rgba(220,80,80,0.5)';
+            field.setAttribute('aria-invalid', 'true');
+            var err = field.parentNode.querySelector('.field-error');
+            if (!err) {
+                err = document.createElement('span');
+                err.className = 'field-error';
+                err.setAttribute('role', 'alert');
+                err.style.cssText = 'font-size:.63rem;color:#E87070;margin-top:.25rem;display:block';
+                field.parentNode.appendChild(err);
+            }
+            err.textContent = msg;
+        }
+
+        function clearError(field) {
+            field.style.borderColor = '';
+            field.removeAttribute('aria-invalid');
+            var err = field.parentNode.querySelector('.field-error');
+            if (err) err.remove();
+        }
+
+        function validate(field) {
+            clearError(field);
+            if (!field.value.trim()) {
+                showError(field, 'This field is required.');
+                return false;
+            }
+            if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
+                showError(field, 'Please enter a valid email address.');
+                return false;
+            }
+            if (field.type === 'tel' && field.value.replace(/\D/g, '').length < 10) {
+                showError(field, 'Please enter a valid phone number.');
+                return false;
+            }
+            return true;
+        }
+
+        form.querySelectorAll('[required]').forEach(function(f) {
+            f.addEventListener('blur',  function() { validate(f); });
+            f.addEventListener('input', function() { clearError(f); });
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var fields = Array.from(form.querySelectorAll('[required]'));
+            if (!fields.every(function(f) { return validate(f); })) return;
+
+            var payload = {
+                first_name:       form.first_name.value.trim(),
+                last_name:        form.last_name.value.trim(),
+                email:            form.email.value.trim(),
+                phone:            form.phone.value.trim(),
+                genre_preference: form.genre_preference.value,
+                event_interest:   form.event_interest.value,
+                lead_source:      'landing_page',
+                audience_type:    form.audience_type.value,
+                referral_event:   form.referral_event.value,
+                submitted_at:     new Date().toISOString(),
+                page_url:         window.location.href
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting…';
+
+            /* CRM submission hook — backend AI agent listens on this event */
+            document.dispatchEvent(new CustomEvent('crm:form-submission', {
+                detail: { form: 'guestlist-intake', payload: payload }
+            }));
+
+            /*
+             * TODO: replace simulation with real CRM endpoint
+             * fetch('/api/crm/guestlist', {
+             *   method: 'POST',
+             *   headers: { 'Content-Type': 'application/json' },
+             *   body: JSON.stringify(payload)
+             * });
+             */
+            setTimeout(function() {
+                form.style.display = 'none';
+                successEl.classList.add('visible');
+                document.dispatchEvent(new CustomEvent('crm:lead-captured', {
+                    detail: { email: payload.email, genre: payload.genre_preference }
+                }));
+            }, 1100);
+        });
+    })();
+
+    /* ─── CRM API: ClassicCRM.addEvent(data) ─────────────────────────
+       Backend agents call this to inject new event cards without reload.
+       Also responds to: document.dispatchEvent(new CustomEvent(
+         'crm:inject-event', { detail: { eventData: { ... } } }
+       ))
+       ──────────────────────────────────────────────────────────────── */
+    window.ClassicCRM = window.ClassicCRM || {};
+
+    ClassicCRM.addEvent = function(d) {
+        var grid = document.getElementById('events-grid');
+        if (!grid) return null;
+
+        var card = document.createElement('article');
+        card.className = 'event-card reveal';
+        card.setAttribute('role', 'listitem');
+        card.dataset.eventId  = d.id;
+        card.dataset.genre    = d.genre;
+        card.dataset.date     = d.date;
+        card.dataset.venue    = d.venue    || '';
+        card.dataset.capacity = d.capacity || '';
+        card.dataset.status   = d.status   || 'active';
+
+        card.innerHTML = [
+            '<div class="event-card-header">',
+            '  <div class="' + (d.bgClass || 'event-bg-rnb') + ' event-card-bg">',
+            '    <span style="font-size:3.5rem;opacity:.22;font-family:var(--font-display)">&#9834;</span>',
+            '  </div>',
+            '  <div class="event-card-header-content">',
+            '    <span class="event-genre-tag">' + d.genreLabel + '</span>',
+            '    <div class="event-date-badge">',
+            '      <div class="event-date-day">'   + d.dateDay   + '</div>',
+            '      <div class="event-date-month">' + d.dateMonth + '</div>',
+            '    </div>',
+            '  </div>',
+            '</div>',
+            '<div class="event-card-body">',
+            '  <h3>' + d.title + '</h3>',
+            '  <div class="event-meta">',
+            '    <div class="event-meta-item">',
+            '      <svg width="12" height="12" viewBox="0 0 24 24" fill="#8A6E2A" aria-hidden="true">',
+            '        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>',
+            '      </svg>',
+            '      <span>' + (d.venue || 'DMV Area') + '</span>',
+            '    </div>',
+            '    <div class="event-meta-item">',
+            '      <svg width="12" height="12" viewBox="0 0 24 24" fill="#8A6E2A" aria-hidden="true">',
+            '        <path d="M12 1C8.68 1 6 3.68 6 7v1H4v15h16V8h-2V7c0-3.32-2.68-6-6-6zm0 2c2.28 0 4 1.72 4 4v1H8V7c0-2.28 1.72-4 4-4z"/>',
+            '      </svg>',
+            '      <span>' + (d.ageRestriction || '21+') + ' Event</span>',
+            '    </div>',
+            '  </div>',
+            '  <p class="event-desc">' + d.description + '</p>',
+            '  <div class="event-card-footer">',
+            '    <div>',
+            '      <div class="event-price">'       + d.price + '</div>',
+            '      <div class="event-price-label">' + (d.priceLabel || 'General Admission') + '</div>',
+            '    </div>',
+            '    <a href="#rsvp" class="btn-event"',
+            '       data-action="rsvp-event"',
+            '       data-event-ref="' + d.id + '"',
+            '       aria-label="RSVP for ' + d.title + '">RSVP Now</a>',
+            '  </div>',
+            '</div>'
+        ].join('');
+
+        grid.appendChild(card);
+
+        /* trigger reveal animation on next paint */
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() { card.classList.add('visible'); });
+        });
+
+        /* update RSVP dropdown */
+        var sel = document.getElementById('field-event');
+        if (sel) {
+            var opt = document.createElement('option');
+            opt.value = d.id;
+            opt.textContent = d.dateMonth + ' ' + d.dateDay + ' — ' + d.title;
+            sel.appendChild(opt);
+        }
+
+        return card;
+    };
+
+    document.addEventListener('crm:inject-event', function(e) {
+        if (e.detail && e.detail.eventData) ClassicCRM.addEvent(e.detail.eventData);
+    });
+
+    /* ─── SMOOTH SCROLL ───────────────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            var target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: target.getBoundingClientRect().top + window.scrollY - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
     </script>
-    <script src="/preference-game.js"></script>
+
 </body>
 </html>
