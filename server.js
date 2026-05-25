@@ -18,7 +18,7 @@ const venueRouter     = require('./routes/venue');
 const { runReengagementAgent } = require('./agents/reengagement');
 
 const app  = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // ── Security headers ──────────────────────────────────────────────────────────
 app.use((req, res, next) => {

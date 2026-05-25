@@ -14,17 +14,22 @@ function requireAuth(req, res, next) {
 }
 
 router.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ error: 'Missing credentials' });
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Missing credentials' });
+    }
+    const admin = db.prepare('SELECT * FROM admins WHERE username = ?').get(username);
+    if (!admin || !bcrypt.compareSync(password, admin.password_hash)) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    req.session.adminId = admin.id;
+    req.session.username = admin.username;
+    res.json({ success: true, username: admin.username });
+  } catch (err) {
+    console.error('[auth/login] Error:', err.message, err.stack);
+    res.status(500).json({ error: err.message });
   }
-  const admin = db.prepare('SELECT * FROM admins WHERE username = ?').get(username);
-  if (!admin || !bcrypt.compareSync(password, admin.password_hash)) {
-    return res.status(401).json({ error: 'Invalid credentials' });
-  }
-  req.session.adminId = admin.id;
-  req.session.username = admin.username;
-  res.json({ success: true, username: admin.username });
 });
 
 router.post('/logout', (req, res) => {
